@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 20 14% 4%;
+    --foreground: 0 0% 100%;
+
+    --atlas-black: 220 14% 10%;
+    --atlas-teal: 157 75% 59%;
+    --atlas-white: 0 0% 100%;
+    --atlas-dark-gray: 220 14% 95%;
+    --atlas-light-gray: 220 14% 15%;
+  }
+
+  * {
+    @apply border-atlas-gray-800;
+  }
+
+  body {
+    @apply bg-atlas-black text-foreground antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-atlas-teal to-atlas-teal/70 bg-clip-text text-transparent;
+  }
+
+  .bg-dark-gradient {
+    @apply bg-gradient-to-b from-atlas-black via-atlas-black/95 to-atlas-black/90;
+  }
+
+  .bg-card-gradient {
+    @apply bg-gradient-to-br from-atlas-gray-800/50 via-atlas-gray-800/30 to-transparent;
+  }
+
+  .bg-glow {
+    @apply bg-atlas-teal/5 blur-[120px];
+  }
+
+  .border-glow {
+    @apply border border-atlas-teal/20 shadow-[0_0_15px_rgba(73,229,154,0.1)];
+  }
+}
