@@ -1,23 +1,51 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Atlas Explorer | Next-Gen Blockchain Explorer by Audicity",
+  title: "Atlas Explorer | Next-Gen Blockchain Analytics",
   description:
-    "Discover Atlas, the innovative blockchain explorer from Audicity. Real-time insights, cross-chain tools, and more. Request a demo today!",
+    "Enterprise-grade blockchain analytics and compliance tools. Real-time visualization, transaction tracking, and smart contract analysis for Web3.",
   keywords:
-    "blockchain explorer, Atlas Explorer, Web 3.0, Audicity blockchain tools, blockchain analytics",
+    "blockchain, analytics, crypto, compliance, Web3, DeFi, smart contracts",
+  openGraph: {
+    title: "Atlas Explorer | Next-Gen Blockchain Analytics",
+    description: "Enterprise-grade blockchain analytics and compliance tools.",
+    url: "https://atlasexplorer.com",
+    siteName: "Atlas Explorer",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Atlas Explorer Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Atlas Explorer | Next-Gen Blockchain Analytics",
+    description: "Enterprise-grade blockchain analytics and compliance tools.",
+    images: ["/twitter-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "your-google-verification-code",
+  },
 };
 
 export default function RootLayout({
@@ -26,9 +54,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${jakarta.variable}`}>
-      <body className="bg-background text-foreground antialiased">
-        {children}
+    <html lang="en" className="scroll-smooth">
+      <body className={inter.className}>
+        <div id="root">{children}</div>
       </body>
     </html>
   );
