@@ -452,20 +452,29 @@ export default function Home() {
 
                     <div className="grid gap-8 sm:grid-cols-3">
                       <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-8 transition-all hover:bg-atlas-gray-800/50"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
+                        className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 transition-all hover:bg-gradient-to-br hover:from-atlas-gray-800/90 hover:via-atlas-gray-800/50 hover:to-atlas-gray-800/90 backdrop-blur-sm border border-atlas-gray-700/50"
+                        whileHover={{
+                          scale: 1.02,
+                          transition: { type: "spring", stiffness: 300 },
+                        }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
                       >
-                        <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-colors" />
+                        <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
+                        <div className="absolute -left-8 -bottom-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
                         <div className="relative space-y-6">
-                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
-                            <Users className="h-6 w-6" weight="light" />
-                          </div>
+                          <motion.div
+                            className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 group-hover:ring-atlas-teal/40 transition-all duration-300"
+                            whileHover={{ rotate: 5 }}
+                          >
+                            <Users className="h-7 w-7" weight="light" />
+                          </motion.div>
                           <div>
-                            <h4 className="font-display text-xl font-bold text-white mb-3">
+                            <h4 className="font-display text-xl font-bold text-white mb-3 group-hover:text-atlas-teal transition-colors">
                               Crypto Enthusiasts
                             </h4>
-                            <p className="text-sm leading-relaxed text-atlas-gray-400">
+                            <p className="text-sm leading-relaxed text-atlas-gray-400 group-hover:text-atlas-gray-300 transition-colors">
                               Intuitive interface designed for seamless
                               exploration, making blockchain data accessible and
                               meaningful
@@ -475,20 +484,29 @@ export default function Home() {
                       </motion.div>
 
                       <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-8 transition-all hover:bg-atlas-gray-800/50"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
+                        className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 transition-all hover:bg-gradient-to-br hover:from-atlas-gray-800/90 hover:via-atlas-gray-800/50 hover:to-atlas-gray-800/90 backdrop-blur-sm border border-atlas-gray-700/50"
+                        whileHover={{
+                          scale: 1.02,
+                          transition: { type: "spring", stiffness: 300 },
+                        }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
                       >
-                        <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-colors" />
+                        <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
+                        <div className="absolute -left-8 -bottom-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
                         <div className="relative space-y-6">
-                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
-                            <Buildings className="h-6 w-6" weight="light" />
-                          </div>
+                          <motion.div
+                            className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 group-hover:ring-atlas-teal/40 transition-all duration-300"
+                            whileHover={{ rotate: 5 }}
+                          >
+                            <Buildings className="h-7 w-7" weight="light" />
+                          </motion.div>
                           <div>
-                            <h4 className="font-display text-xl font-bold text-white mb-3">
+                            <h4 className="font-display text-xl font-bold text-white mb-3 group-hover:text-atlas-teal transition-colors">
                               Enterprise Solutions
                             </h4>
-                            <p className="text-sm leading-relaxed text-atlas-gray-400">
+                            <p className="text-sm leading-relaxed text-atlas-gray-400 group-hover:text-atlas-gray-300 transition-colors">
                               Comprehensive suite of compliance, risk
                               management, and security tools for institutional
                               needs
@@ -498,20 +516,29 @@ export default function Home() {
                       </motion.div>
 
                       <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-8 transition-all hover:bg-atlas-gray-800/50"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
+                        className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 transition-all hover:bg-gradient-to-br hover:from-atlas-gray-800/90 hover:via-atlas-gray-800/50 hover:to-atlas-gray-800/90 backdrop-blur-sm border border-atlas-gray-700/50"
+                        whileHover={{
+                          scale: 1.02,
+                          transition: { type: "spring", stiffness: 300 },
+                        }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
                       >
-                        <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-colors" />
+                        <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
+                        <div className="absolute -left-8 -bottom-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
                         <div className="relative space-y-6">
-                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
-                            <Crown className="h-6 w-6" weight="light" />
-                          </div>
+                          <motion.div
+                            className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 group-hover:ring-atlas-teal/40 transition-all duration-300"
+                            whileHover={{ rotate: 5 }}
+                          >
+                            <Crown className="h-7 w-7" weight="light" />
+                          </motion.div>
                           <div>
-                            <h4 className="font-display text-xl font-bold text-white mb-3">
+                            <h4 className="font-display text-xl font-bold text-white mb-3 group-hover:text-atlas-teal transition-colors">
                               Premium Experience
                             </h4>
-                            <p className="text-sm leading-relaxed text-atlas-gray-400">
+                            <p className="text-sm leading-relaxed text-atlas-gray-400 group-hover:text-atlas-gray-300 transition-colors">
                               Bespoke analytics and customized security
                               solutions tailored to your specific requirements
                             </p>
