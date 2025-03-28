@@ -24,6 +24,8 @@ import {
   LockKey,
   Scales,
   Eye,
+  Graph,
+  Bell,
 } from "@phosphor-icons/react";
 import { useState, useCallback } from "react";
 
@@ -94,37 +96,54 @@ const services = [
   {
     title: "Block Explorer",
     description:
-      "Visualize blockchain data in real-time—explore blocks, transactions, and more with ease.",
-    link: "#",
-    icon: <Cube className="h-8 w-8" weight="light" />,
+      "Visualise blockchain data in real-time—explore blocks, transactions, and more with ease.",
+    icon: <Cube className="h-6 w-6" weight="light" />,
   },
   {
     title: "Transaction Tracking",
     description:
-      "Monitor and analyze transactions instantly—stay informed on every move.",
-    link: "#",
-    icon: <CheckSquare className="h-8 w-8" weight="light" />,
+      "Monitor and analyse transactions instantly—stay informed on every move.",
+    icon: <CheckSquare className="h-6 w-6" weight="light" />,
   },
   {
     title: "Smart Contract Analysis",
     description:
       "Interact with and audit smart contracts—perfect for developers and DeFi users.",
-    link: "#",
-    icon: <Code className="h-8 w-8" weight="light" />,
+    icon: <Code className="h-6 w-6" weight="light" />,
   },
   {
     title: "Network Analytics",
     description:
       "Gain cross-chain insights—navigate Web 3.0 networks with confidence.",
-    link: "#",
-    icon: <ChartLine className="h-8 w-8" weight="light" />,
+    icon: <ChartLine className="h-6 w-6" weight="light" />,
   },
   {
     title: "AtlasInsight Engine",
     description:
       "Unlock smarter insights with our proprietary AI—detect patterns and threats with unmatched speed.",
-    link: "#",
-    icon: <Brain className="h-8 w-8" weight="light" />,
+    icon: <Brain className="h-6 w-6" weight="light" />,
+  },
+  {
+    title: "Heuristics Layer",
+    description:
+      "Understand wallet behaviour with advanced clustering and anomaly detection.",
+    icon: <Graph className="h-6 w-6" weight="light" />,
+  },
+  {
+    title: "Dark Web Monitoring",
+    description: "Detect off-chain threats before they reach the chain.",
+    icon: <Eye className="h-6 w-6" weight="light" />,
+  },
+  {
+    title: "Real-Time Risk Alerts",
+    description: "Get notified of high-risk activity as it happens.",
+    icon: <Bell className="h-6 w-6" weight="light" />,
+  },
+  {
+    title: "Enterprise Collaboration",
+    description:
+      "Share insights securely across teams with audit trails and permission controls.",
+    icon: <Users className="h-6 w-6" weight="light" />,
   },
 ];
 
@@ -201,7 +220,17 @@ export default function Home() {
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
-    section?.scrollIntoView({ behavior: "smooth" });
+    const header = document.querySelector("header");
+    const offset = 32; // Additional offset for spacing
+
+    if (section) {
+      const sectionTop =
+        section.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({
+        top: sectionTop,
+        behavior: "smooth",
+      });
+    }
   };
 
   // Add keyboard navigation
@@ -406,26 +435,42 @@ export default function Home() {
                 >
                   Key Features
                 </h2>
+                <div className="mt-6 space-y-4">
+                  <p className="text-xl text-atlas-gray-400">
+                    While others report on what happened, Atlas reveals what's
+                    happening right now — and what's about to happen.
+                  </p>
+                  <p className="mx-auto max-w-3xl text-lg leading-relaxed text-atlas-gray-400">
+                    Built for both enterprise-grade compliance and real-time
+                    intelligence, Atlas combines proactive AI, deep forensic
+                    tooling, and accessibility to deliver insights that aren't
+                    just informative — they're actionable, trusted, and
+                    future-facing.
+                  </p>
+                </div>
               </div>
-              <div className="space-y-6">
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {services.map((service, index) => (
                   <motion.div
                     key={service.title}
-                    className="group relative overflow-hidden rounded-lg border-glow bg-card-gradient p-6 transition-all hover:bg-atlas-gray-800/20"
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    className="group relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-6 backdrop-blur-sm hover:bg-atlas-gray-800/20"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 0.5 }}
                   >
-                    <div className="flex items-start gap-6">
-                      <div className="text-atlas-teal transition-transform group-hover:scale-110 shrink-0 mt-1">
-                        {service.icon}
+                    <div className="flex gap-4">
+                      <div className="shrink-0">
+                        <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 transition-all duration-200 group-hover:scale-110 group-hover:ring-atlas-teal/40">
+                          {service.icon}
+                        </div>
                       </div>
-                      <div className="flex-1">
-                        <h3 className="font-display text-xl font-bold text-white">
+                      <div>
+                        <h3 className="font-display text-lg font-bold text-white mb-2 group-hover:text-atlas-teal transition-colors">
                           {service.title}
                         </h3>
-                        <p className="mt-2 text-base leading-relaxed text-atlas-gray-400">
+                        <p className="text-sm leading-relaxed text-atlas-gray-400 group-hover:text-atlas-gray-300 transition-colors">
                           {service.description}
                         </p>
                       </div>
