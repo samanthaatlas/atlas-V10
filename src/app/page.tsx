@@ -641,10 +641,10 @@ export default function Home() {
                 </h2>
               </div>
 
-              {/* Vision & Leadership and Independence & Values Cards */}
+              {/* Vision & Expertise and Independence & Values Cards */}
               <div className="mt-20 relative mx-auto max-w-7xl">
                 <div className="grid grid-cols-12 gap-6">
-                  {/* Vision & Leadership - Largest Box */}
+                  {/* Vision & Expertise - Largest Box */}
                   <motion.div
                     className="col-span-12 lg:col-span-7 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
                     initial={{ opacity: 0, y: 20 }}
@@ -662,7 +662,7 @@ export default function Home() {
                           <Brain className="h-7 w-7" weight="light" />
                         </motion.div>
                         <h3 className="font-display text-2xl font-bold text-white">
-                          Vision & Leadership
+                          Vision & Expertise
                         </h3>
                       </div>
 
@@ -678,73 +678,38 @@ export default function Home() {
                           </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
-                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
-                            <div className="relative space-y-4">
-                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                                Leadership
-                              </h4>
-                              <ul className="space-y-3 text-sm text-atlas-gray-400">
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">CEO</span> with
-                                  DeFi scaling expertise
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">CTO</span>{" "}
-                                  specializing in AI & blockchain
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Chief Fintech Officer
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Chief Compliance Officer
-                                  </span>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-
-                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
-                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
-                            <div className="relative space-y-4">
-                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                                Expertise
-                              </h4>
-                              <ul className="space-y-3 text-sm text-atlas-gray-400">
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Blockchain Development
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    AI Integration
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Global Payments
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Regulatory Compliance
-                                  </span>
-                                </li>
-                              </ul>
-                            </div>
+                        <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-8">
+                          <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
+                          <div className="relative space-y-6">
+                            <h4 className="font-display text-xl font-semibold text-atlas-teal">
+                              Expertise
+                            </h4>
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-atlas-gray-400">
+                              <li className="flex items-center gap-3">
+                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                <span className="font-medium text-white">
+                                  Blockchain Development
+                                </span>
+                              </li>
+                              <li className="flex items-center gap-3">
+                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                <span className="font-medium text-white">
+                                  AI Integration
+                                </span>
+                              </li>
+                              <li className="flex items-center gap-3">
+                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                <span className="font-medium text-white">
+                                  Global Payments
+                                </span>
+                              </li>
+                              <li className="flex items-center gap-3">
+                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                <span className="font-medium text-white">
+                                  Regulatory Compliance
+                                </span>
+                              </li>
+                            </ul>
                           </div>
                         </div>
                       </div>
