@@ -20,6 +20,10 @@ import {
   Layout,
   PaperPlaneTilt,
   List,
+  Shield,
+  LockKey,
+  Scales,
+  Eye,
 } from "@phosphor-icons/react";
 import { useState, useCallback } from "react";
 
@@ -69,8 +73,20 @@ const stats = [
     value: "850K+",
   },
   {
-    label: "Enterprise Clients in Private Beta",
-    value: "2",
+    label: "Wallets Monitored with Live Alerts",
+    value: "30K+",
+  },
+  {
+    label: "Smart Contract Events Parsed",
+    value: "50K+",
+  },
+  {
+    label: "EVM-Compatible Blockchains",
+    value: "5+",
+  },
+  {
+    label: "Dark Web Signals Tracked & Correlated",
+    value: "2.5K+",
   },
 ];
 
@@ -229,6 +245,11 @@ export default function Home() {
                   label: "Features",
                 },
                 {
+                  id: "about",
+                  icon: <Users weight="light" />,
+                  label: "About",
+                },
+                {
                   id: "experience",
                   icon: <Rocket weight="light" />,
                   label: "Experience",
@@ -342,7 +363,7 @@ export default function Home() {
               transition={{ delay: 0.6, duration: 0.8 }}
             >
               <div className="mx-auto max-w-5xl px-6 sm:px-6">
-                <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-3">
+                <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                   {stats.map((stat) => (
                     <div
                       key={stat.label}
@@ -360,6 +381,11 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+                <p className="text-center mt-8 text-lg text-atlas-gray-400 max-w-3xl mx-auto">
+                  Atlas is not just another analytics tool — it's the
+                  infrastructure layer for the next era of blockchain
+                  legitimacy.
+                </p>
               </div>
             </motion.div>
           </Section>
@@ -543,6 +569,284 @@ export default function Home() {
                               solutions tailored to your specific requirements
                             </p>
                           </div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </Section>
+
+          {/* About Us Section */}
+          <Section
+            variant="dark"
+            className="py-16 sm:py-20"
+            id="about"
+            role="region"
+            aria-labelledby="about-title"
+          >
+            <div className="space-y-12 sm:space-y-16 px-6 sm:px-0">
+              <div className="text-center">
+                <h2
+                  id="about-title"
+                  className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
+                >
+                  About <span className="text-atlas-teal">Us</span>
+                </h2>
+              </div>
+
+              <div className="grid gap-8 lg:grid-cols-2">
+                {/* Vision & Leadership */}
+                <motion.div
+                  className="relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 backdrop-blur-sm"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
+                  <div className="relative space-y-6">
+                    <motion.div
+                      className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                      whileHover={{ rotate: 5 }}
+                    >
+                      <Brain className="h-7 w-7" weight="light" />
+                    </motion.div>
+                    <div>
+                      <h3 className="font-display text-2xl font-bold text-white mb-4">
+                        Vision & Leadership
+                      </h3>
+                      <p className="text-atlas-gray-400 leading-relaxed">
+                        At Atlas, we're a diverse collective of innovators
+                        driven by a shared vision for the future of Web 3.0. Our
+                        team blends deep expertise in blockchain, fintech, and
+                        AI, with developers who have been embedded in the Web
+                        3.0 space since its earliest days.
+                      </p>
+                      <div className="mt-6 grid grid-cols-2 gap-6">
+                        <div className="space-y-2 border-l-2 border-atlas-teal/30 pl-4">
+                          <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                            Leadership
+                          </h4>
+                          <ul className="space-y-2 text-sm text-atlas-gray-400">
+                            <li>CEO with DeFi scaling expertise</li>
+                            <li>CTO specializing in AI & blockchain</li>
+                            <li>Chief Fintech Officer</li>
+                            <li>Chief Compliance Officer</li>
+                          </ul>
+                        </div>
+                        <div className="space-y-2 border-l-2 border-atlas-teal/30 pl-4">
+                          <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                            Expertise
+                          </h4>
+                          <ul className="space-y-2 text-sm text-atlas-gray-400">
+                            <li>Blockchain Development</li>
+                            <li>AI Integration</li>
+                            <li>Global Payments</li>
+                            <li>Regulatory Compliance</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Independence & Values */}
+                <motion.div
+                  className="relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 backdrop-blur-sm"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
+                  <div className="relative space-y-6">
+                    <motion.div
+                      className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                      whileHover={{ rotate: -5 }}
+                    >
+                      <Crown className="h-7 w-7" weight="light" />
+                    </motion.div>
+                    <div>
+                      <h3 className="font-display text-2xl font-bold text-white mb-4">
+                        Independence & Values
+                      </h3>
+                      <p className="text-atlas-gray-400 leading-relaxed">
+                        We remain a private, founder-funded venture—choosing to
+                        forgo external seed funding to preserve creative
+                        autonomy and prioritize user-focused development. This
+                        independence allows us to build with intention,
+                        delivering unmatched transparency, integrity, and
+                        innovation in the decentralized ecosystem.
+                      </p>
+                      <div className="mt-6 grid grid-cols-2 gap-6">
+                        <div className="space-y-2 border-l-2 border-atlas-teal/30 pl-4">
+                          <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                            Core Values
+                          </h4>
+                          <ul className="space-y-2 text-sm text-atlas-gray-400">
+                            <li>User-First Development</li>
+                            <li>Creative Autonomy</li>
+                            <li>Transparency</li>
+                            <li>Innovation</li>
+                          </ul>
+                        </div>
+                        <div className="space-y-2 border-l-2 border-atlas-teal/30 pl-4">
+                          <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                            Approach
+                          </h4>
+                          <ul className="space-y-2 text-sm text-atlas-gray-400">
+                            <li>Founder-Funded</li>
+                            <li>Independent Development</li>
+                            <li>Long-Term Vision</li>
+                            <li>Quality-Driven</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Security & Compliance Section */}
+              <motion.div
+                className="relative mx-auto max-w-5xl mt-16"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="relative overflow-hidden rounded-2xl border-glow bg-card-gradient p-8 sm:p-12 backdrop-blur-sm">
+                  <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-atlas-teal/10 blur-3xl" />
+                  <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/10 blur-3xl" />
+
+                  <div className="relative z-10">
+                    <div className="text-center space-y-4 mb-12">
+                      <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                        Security &{" "}
+                        <span className="text-atlas-teal">Compliance</span>
+                      </h3>
+                      <p className="text-atlas-gray-400 text-lg max-w-2xl mx-auto">
+                        Setting the highest standards for security and
+                        compliance in blockchain exploration
+                      </p>
+                    </div>
+
+                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                      <motion.div
+                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-6"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <div className="space-y-4">
+                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
+                            <Shield className="h-6 w-6" weight="light" />
+                          </div>
+                          <h4 className="font-display text-lg font-bold text-white">
+                            Certifications
+                          </h4>
+                          <ul className="space-y-2 text-sm text-atlas-gray-400">
+                            <li className="flex items-center gap-2">
+                              <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                              </span>
+                              ISO/IEC 27001 (In Progress)
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                              </span>
+                              SOC 2 (In Progress)
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                              </span>
+                              Security Audits (Scheduled)
+                            </li>
+                          </ul>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-6"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <div className="space-y-4">
+                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
+                            <LockKey className="h-6 w-6" weight="light" />
+                          </div>
+                          <h4 className="font-display text-lg font-bold text-white">
+                            Data Protection
+                          </h4>
+                          <ul className="space-y-2 text-sm text-atlas-gray-400">
+                            <li>End-to-End Encryption</li>
+                            <li>Role-Based Access</li>
+                            <li>Data Anonymization</li>
+                          </ul>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-6"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <div className="space-y-4">
+                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
+                            <Scales className="h-6 w-6" weight="light" />
+                          </div>
+                          <h4 className="font-display text-lg font-bold text-white">
+                            Compliance
+                          </h4>
+                          <ul className="space-y-2 text-sm text-atlas-gray-400">
+                            <li className="flex items-center gap-2">
+                              <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                              </span>
+                              GDPR Alignment (In Progress)
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                              </span>
+                              CCPA Compliance (In Progress)
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                              </span>
+                              AML/KYC Framework (In Development)
+                            </li>
+                          </ul>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-6"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <div className="space-y-4">
+                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
+                            <Eye className="h-6 w-6" weight="light" />
+                          </div>
+                          <h4 className="font-display text-lg font-bold text-white">
+                            Monitoring
+                          </h4>
+                          <ul className="space-y-2 text-sm text-atlas-gray-400">
+                            <li>Dark Web Monitoring</li>
+                            <li>Address Flagging</li>
+                            <li>Smart Contract Audits</li>
+                          </ul>
                         </div>
                       </motion.div>
                     </div>
