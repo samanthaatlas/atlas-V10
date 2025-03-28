@@ -279,6 +279,11 @@ export default function Home() {
                   label: "About",
                 },
                 {
+                  id: "security",
+                  icon: <Shield weight="light" />,
+                  label: "Security",
+                },
+                {
                   id: "experience",
                   icon: <Rocket weight="light" />,
                   label: "Experience",
@@ -860,8 +865,18 @@ export default function Home() {
               </div>
 
               {/* Security & Compliance Section */}
+              <div className="text-center mb-12" id="security">
+                <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                  Security & <span className="text-atlas-teal">Compliance</span>
+                </h3>
+                <p className="text-atlas-gray-400 text-lg max-w-2xl mx-auto mt-4">
+                  Setting the highest standards for security and compliance in
+                  blockchain exploration
+                </p>
+              </div>
+
               <motion.div
-                className="relative mx-auto max-w-5xl mt-16"
+                className="relative mx-auto max-w-5xl"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -872,17 +887,6 @@ export default function Home() {
                   <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/10 blur-3xl" />
 
                   <div className="relative z-10">
-                    <div className="text-center space-y-4 mb-12">
-                      <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                        Security &{" "}
-                        <span className="text-atlas-teal">Compliance</span>
-                      </h3>
-                      <p className="text-atlas-gray-400 text-lg max-w-2xl mx-auto">
-                        Setting the highest standards for security and
-                        compliance in blockchain exploration
-                      </p>
-                    </div>
-
                     <div className="grid gap-12 lg:grid-cols-2">
                       {/* Certifications & Compliance Column */}
                       <div className="space-y-8">
