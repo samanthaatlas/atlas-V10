@@ -274,14 +274,14 @@ export default function Home() {
                   label: "Features",
                 },
                 {
-                  id: "about",
-                  icon: <Users weight="light" />,
-                  label: "About",
-                },
-                {
                   id: "security",
                   icon: <Shield weight="light" />,
                   label: "Security",
+                },
+                {
+                  id: "about",
+                  icon: <Users weight="light" />,
+                  label: "About",
                 },
                 {
                   id: "experience",
@@ -628,244 +628,16 @@ export default function Home() {
             </div>
           </Section>
 
-          {/* About Us Section */}
+          {/* Security & Compliance Section */}
           <Section
             variant="dark"
             className="py-16 sm:py-20"
-            id="about"
+            id="security"
             role="region"
-            aria-labelledby="about-title"
+            aria-labelledby="security-title"
           >
             <div className="space-y-12 sm:space-y-16 px-6 sm:px-0">
-              <div className="text-center">
-                <h2
-                  id="about-title"
-                  className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
-                >
-                  About <span className="text-atlas-teal">Us</span>
-                </h2>
-              </div>
-
-              {/* Vision & Expertise and Independence & Values Cards */}
-              <div className="mt-20 relative mx-auto max-w-7xl">
-                <div className="grid grid-cols-12 gap-6">
-                  {/* Vision & Expertise - Largest Box */}
-                  <motion.div
-                    className="col-span-12 lg:col-span-7 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
-                    <div className="relative space-y-8">
-                      <div className="flex items-center gap-4">
-                        <motion.div
-                          className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
-                          whileHover={{ rotate: 5 }}
-                        >
-                          <Brain className="h-7 w-7" weight="light" />
-                        </motion.div>
-                        <h3 className="font-display text-2xl font-bold text-white">
-                          Vision & Expertise
-                        </h3>
-                      </div>
-
-                      <div className="relative space-y-8">
-                        <div className="prose prose-invert max-w-none">
-                          <p className="text-atlas-gray-400 leading-relaxed">
-                            At Atlas, we're a diverse collective of innovators
-                            driven by a shared vision for the future of Web 3.0.
-                            Our team blends deep expertise in blockchain,
-                            fintech, and AI, with developers who have been
-                            embedded in the Web 3.0 space since its earliest
-                            days.
-                          </p>
-                        </div>
-
-                        <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-8">
-                          <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
-                          <div className="relative space-y-6">
-                            <h4 className="font-display text-xl font-semibold text-atlas-teal">
-                              Expertise
-                            </h4>
-                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-atlas-gray-400">
-                              <li className="flex items-center gap-3">
-                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                <span className="font-medium text-white">
-                                  Blockchain Development
-                                </span>
-                              </li>
-                              <li className="flex items-center gap-3">
-                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                <span className="font-medium text-white">
-                                  AI Integration
-                                </span>
-                              </li>
-                              <li className="flex items-center gap-3">
-                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                <span className="font-medium text-white">
-                                  Global Payments
-                                </span>
-                              </li>
-                              <li className="flex items-center gap-3">
-                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                <span className="font-medium text-white">
-                                  Regulatory Compliance
-                                </span>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Brand Quote - Small Emphasis Box */}
-                  <motion.div
-                    className="col-span-12 lg:col-span-5 row-span-1 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                  >
-                    <div className="absolute inset-0">
-                      <div className="absolute inset-0 bg-gradient-to-b from-atlas-teal/5 via-transparent to-transparent opacity-30" />
-                      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px]" />
-                    </div>
-                    <div className="relative h-full flex flex-col items-center justify-center text-center space-y-6">
-                      <motion.div
-                        className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <Shield className="h-8 w-8" weight="light" />
-                      </motion.div>
-                      <div className="space-y-4">
-                        <h3 className="font-display text-3xl font-bold text-white leading-tight">
-                          "We're not just building tools — we're building
-                          trust."
-                        </h3>
-                        <p className="text-lg text-atlas-gray-400 leading-relaxed max-w-sm mx-auto">
-                          Atlas exists to serve the builders of tomorrow, not
-                          the investors of yesterday.
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Independence & Values - Medium Box */}
-                  <motion.div
-                    className="col-span-12 lg:col-span-12 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
-                    <div className="relative space-y-8">
-                      <div className="flex items-center gap-4">
-                        <motion.div
-                          className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
-                          whileHover={{ rotate: -5 }}
-                        >
-                          <Crown className="h-7 w-7" weight="light" />
-                        </motion.div>
-                        <h3 className="font-display text-2xl font-bold text-white">
-                          Independence & Values
-                        </h3>
-                      </div>
-
-                      <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div className="prose prose-invert max-w-none lg:col-span-1">
-                          <p className="text-atlas-gray-400 leading-relaxed">
-                            We remain a private, founder-funded venture—choosing
-                            to forgo external seed funding to preserve creative
-                            autonomy and prioritize user-focused development.
-                            This independence allows us to build with intention,
-                            delivering unmatched transparency, integrity, and
-                            innovation in the decentralized ecosystem.
-                          </p>
-                        </div>
-
-                        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
-                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
-                            <div className="relative space-y-4">
-                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                                Core Values
-                              </h4>
-                              <ul className="space-y-3 text-sm text-atlas-gray-400">
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    User-First Development
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Creative Autonomy
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Transparency
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Innovation
-                                  </span>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-
-                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
-                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
-                            <div className="relative space-y-4">
-                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                                Approach
-                              </h4>
-                              <ul className="space-y-3 text-sm text-atlas-gray-400">
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Founder-Funded
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Independent Development
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Long-Term Vision
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Quality-Driven
-                                  </span>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-
-              {/* Security & Compliance Section */}
-              <div className="text-center mb-12" id="security">
+              <div className="text-center mb-12">
                 <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
                   Security & <span className="text-atlas-teal">Compliance</span>
                 </h3>
@@ -1162,135 +934,376 @@ export default function Home() {
             </div>
           </Section>
 
-          {/* Features Section */}
-          <Section
-            variant="dark"
-            className="overflow-hidden py-16 sm:py-20"
-            id="experience"
-            role="region"
-            aria-labelledby="experience-title"
-          >
-            <div className="space-y-12 px-6 sm:px-0">
-              <div className="text-center">
-                <h2
-                  id="experience-title"
-                  className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
-                >
-                  Experience Atlas
-                </h2>
-                <p className="mt-4 text-base sm:text-lg text-atlas-gray-400">
-                  Discover the power of intuitive blockchain exploration
-                </p>
-              </div>
-              <motion.div
-                className="relative -mx-6 sm:mx-0"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
-                <div className="relative">
-                  <div className="absolute -inset-x-20 -top-20 -bottom-20 bg-glow" />
-                  <div className="relative rounded-none sm:rounded-xl border-x-0 sm:border-glow bg-card-gradient p-4 sm:p-6 backdrop-blur-sm">
-                    <DynamicScreenshotShowcase
-                      className="mt-8 sm:mt-12"
-                      imageSrc="/image-2-landing.png"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </Section>
-
-          {/* CTA Section */}
+          {/* About Us Section */}
           <Section
             variant="dark"
             className="py-16 sm:py-20"
-            id="cta"
+            id="about"
             role="region"
-            aria-labelledby="cta-title"
+            aria-labelledby="about-title"
           >
-            <div className="space-y-10 px-6 sm:px-0">
+            <div className="space-y-12 sm:space-y-16 px-6 sm:px-0">
               <div className="text-center">
                 <h2
-                  id="cta-title"
+                  id="about-title"
                   className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
                 >
-                  Start Your Journey
+                  About <span className="text-atlas-teal">Us</span>
                 </h2>
-                <p className="mt-4 text-base sm:text-xl text-atlas-gray-400">
-                  Join the future of blockchain exploration
-                </p>
               </div>
-              <form
-                onSubmit={handleSubmit}
-                className="mx-auto mt-8 flex max-w-md gap-4 flex-col sm:flex-row"
-              >
-                <div className="flex-1">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    className="w-full rounded-lg border-2 border-atlas-gray-700 bg-atlas-gray-800/50 px-4 py-3 text-base text-white placeholder-atlas-gray-500 backdrop-blur-sm transition-colors focus:border-atlas-teal focus:outline-none disabled:opacity-50"
-                    disabled={isSubmitting}
-                    aria-label="Email address"
-                    aria-describedby={formError ? "form-error" : undefined}
-                  />
-                  {formError && (
-                    <p id="form-error" className="mt-2 text-sm text-red-400">
-                      {formError}
-                    </p>
-                  )}
+
+              {/* Vision & Expertise and Independence & Values Cards */}
+              <div className="mt-20 relative mx-auto max-w-7xl">
+                <div className="grid grid-cols-12 gap-6">
+                  {/* Vision & Expertise - Largest Box */}
+                  <motion.div
+                    className="col-span-12 lg:col-span-7 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
+                    <div className="relative space-y-8">
+                      <div className="flex items-center gap-4">
+                        <motion.div
+                          className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                          whileHover={{ rotate: 5 }}
+                        >
+                          <Brain className="h-7 w-7" weight="light" />
+                        </motion.div>
+                        <h3 className="font-display text-2xl font-bold text-white">
+                          Vision & Expertise
+                        </h3>
+                      </div>
+
+                      <div className="relative space-y-8">
+                        <div className="prose prose-invert max-w-none">
+                          <p className="text-atlas-gray-400 leading-relaxed">
+                            At Atlas, we're a diverse collective of innovators
+                            driven by a shared vision for the future of Web 3.0.
+                            Our team blends deep expertise in blockchain,
+                            fintech, and AI, with developers who have been
+                            embedded in the Web 3.0 space since its earliest
+                            days.
+                          </p>
+                        </div>
+
+                        <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-8">
+                          <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
+                          <div className="relative space-y-6">
+                            <h4 className="font-display text-xl font-semibold text-atlas-teal">
+                              Expertise
+                            </h4>
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-atlas-gray-400">
+                              <li className="flex items-center gap-3">
+                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                <span className="font-medium text-white">
+                                  Blockchain Development
+                                </span>
+                              </li>
+                              <li className="flex items-center gap-3">
+                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                <span className="font-medium text-white">
+                                  AI Integration
+                                </span>
+                              </li>
+                              <li className="flex items-center gap-3">
+                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                <span className="font-medium text-white">
+                                  Global Payments
+                                </span>
+                              </li>
+                              <li className="flex items-center gap-3">
+                                <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                <span className="font-medium text-white">
+                                  Regulatory Compliance
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Brand Quote - Small Emphasis Box */}
+                  <motion.div
+                    className="col-span-12 lg:col-span-5 row-span-1 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                  >
+                    <div className="absolute inset-0">
+                      <div className="absolute inset-0 bg-gradient-to-b from-atlas-teal/5 via-transparent to-transparent opacity-30" />
+                      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px]" />
+                    </div>
+                    <div className="relative h-full flex flex-col items-center justify-center text-center space-y-6">
+                      <motion.div
+                        className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <Shield className="h-8 w-8" weight="light" />
+                      </motion.div>
+                      <div className="space-y-4">
+                        <h3 className="font-display text-3xl font-bold text-white leading-tight">
+                          "We're not just building tools — we're building
+                          trust."
+                        </h3>
+                        <p className="text-lg text-atlas-gray-400 leading-relaxed max-w-sm mx-auto">
+                          Atlas exists to serve the builders of tomorrow, not
+                          the investors of yesterday.
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Independence & Values - Medium Box */}
+                  <motion.div
+                    className="col-span-12 lg:col-span-12 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
+                    <div className="relative space-y-8">
+                      <div className="flex items-center gap-4">
+                        <motion.div
+                          className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                          whileHover={{ rotate: -5 }}
+                        >
+                          <Crown className="h-7 w-7" weight="light" />
+                        </motion.div>
+                        <h3 className="font-display text-2xl font-bold text-white">
+                          Independence & Values
+                        </h3>
+                      </div>
+
+                      <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div className="prose prose-invert max-w-none lg:col-span-1">
+                          <p className="text-atlas-gray-400 leading-relaxed">
+                            We remain a private, founder-funded venture—choosing
+                            to forgo external seed funding to preserve creative
+                            autonomy and prioritize user-focused development.
+                            This independence allows us to build with intention,
+                            delivering unmatched transparency, integrity, and
+                            innovation in the decentralized ecosystem.
+                          </p>
+                        </div>
+
+                        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
+                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
+                            <div className="relative space-y-4">
+                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                                Core Values
+                              </h4>
+                              <ul className="space-y-3 text-sm text-atlas-gray-400">
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    User-First Development
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Creative Autonomy
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Transparency
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Innovation
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
+                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
+                            <div className="relative space-y-4">
+                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                                Approach
+                              </h4>
+                              <ul className="space-y-3 text-sm text-atlas-gray-400">
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Founder-Funded
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Independent Development
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Long-Term Vision
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Quality-Driven
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="w-full sm:w-auto text-base px-8 py-3 disabled:opacity-50"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Submitting..." : "Get Started"}
-                </Button>
-              </form>
+              </div>
+
+              {/* Features Section */}
+              <Section
+                variant="dark"
+                className="overflow-hidden py-16 sm:py-20"
+                id="experience"
+                role="region"
+                aria-labelledby="experience-title"
+              >
+                <div className="space-y-12 px-6 sm:px-0">
+                  <div className="text-center">
+                    <h2
+                      id="experience-title"
+                      className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
+                    >
+                      Experience Atlas
+                    </h2>
+                    <p className="mt-4 text-base sm:text-lg text-atlas-gray-400">
+                      Discover the power of intuitive blockchain exploration
+                    </p>
+                  </div>
+                  <motion.div
+                    className="relative -mx-6 sm:mx-0"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3, duration: 0.8 }}
+                  >
+                    <div className="relative">
+                      <div className="absolute -inset-x-20 -top-20 -bottom-20 bg-glow" />
+                      <div className="relative rounded-none sm:rounded-xl border-x-0 sm:border-glow bg-card-gradient p-4 sm:p-6 backdrop-blur-sm">
+                        <DynamicScreenshotShowcase
+                          className="mt-8 sm:mt-12"
+                          imageSrc="/image-2-landing.png"
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </Section>
+
+              {/* CTA Section */}
+              <Section
+                variant="dark"
+                className="py-16 sm:py-20"
+                id="cta"
+                role="region"
+                aria-labelledby="cta-title"
+              >
+                <div className="space-y-10 px-6 sm:px-0">
+                  <div className="text-center">
+                    <h2
+                      id="cta-title"
+                      className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
+                    >
+                      Start Your Journey
+                    </h2>
+                    <p className="mt-4 text-base sm:text-xl text-atlas-gray-400">
+                      Join the future of blockchain exploration
+                    </p>
+                  </div>
+                  <form
+                    onSubmit={handleSubmit}
+                    className="mx-auto mt-8 flex max-w-md gap-4 flex-col sm:flex-row"
+                  >
+                    <div className="flex-1">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email"
+                        className="w-full rounded-lg border-2 border-atlas-gray-700 bg-atlas-gray-800/50 px-4 py-3 text-base text-white placeholder-atlas-gray-500 backdrop-blur-sm transition-colors focus:border-atlas-teal focus:outline-none disabled:opacity-50"
+                        disabled={isSubmitting}
+                        aria-label="Email address"
+                        aria-describedby={formError ? "form-error" : undefined}
+                      />
+                      {formError && (
+                        <p
+                          id="form-error"
+                          className="mt-2 text-sm text-red-400"
+                        >
+                          {formError}
+                        </p>
+                      )}
+                    </div>
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className="w-full sm:w-auto text-base px-8 py-3 disabled:opacity-50"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Submitting..." : "Get Started"}
+                    </Button>
+                  </form>
+                </div>
+              </Section>
+
+              {/* Footer */}
+              <footer
+                className="border-t border-atlas-gray-800 bg-atlas-black py-12"
+                role="contentinfo"
+              >
+                <div className="mx-auto max-w-6xl px-6 sm:px-6 lg:px-8">
+                  <div className="flex flex-col items-center justify-between gap-6 sm:gap-4 md:flex-row">
+                    <p className="text-atlas-gray-500 text-center sm:text-left text-sm">
+                      © 2025 Atlas Explorer Inc. Built by Audicity. All rights
+                      reserved.
+                    </p>
+                    <div className="flex items-center gap-8">
+                      <button
+                        onClick={() =>
+                          (window.location.href =
+                            "mailto:contact@atlasexplorer.com")
+                        }
+                        className="text-atlas-gray-500 transition-colors hover:text-atlas-teal text-sm"
+                      >
+                        Contact Us
+                      </button>
+                      <a
+                        href="/privacy"
+                        className="text-atlas-gray-500 transition-colors hover:text-atlas-teal text-sm"
+                      >
+                        Privacy Policy
+                      </a>
+                      <a
+                        href="#"
+                        className="text-atlas-gray-500 transition-colors hover:text-atlas-teal text-sm"
+                      >
+                        Follow Us
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </footer>
             </div>
           </Section>
-
-          {/* Footer */}
-          <footer
-            className="border-t border-atlas-gray-800 bg-atlas-black py-12"
-            role="contentinfo"
-          >
-            <div className="mx-auto max-w-6xl px-6 sm:px-6 lg:px-8">
-              <div className="flex flex-col items-center justify-between gap-6 sm:gap-4 md:flex-row">
-                <p className="text-atlas-gray-500 text-center sm:text-left text-sm">
-                  © 2025 Atlas Explorer Inc. Built by Audicity. All rights
-                  reserved.
-                </p>
-                <div className="flex items-center gap-8">
-                  <button
-                    onClick={() =>
-                      (window.location.href =
-                        "mailto:contact@atlasexplorer.com")
-                    }
-                    className="text-atlas-gray-500 transition-colors hover:text-atlas-teal text-sm"
-                  >
-                    Contact Us
-                  </button>
-                  <a
-                    href="/privacy"
-                    className="text-atlas-gray-500 transition-colors hover:text-atlas-teal text-sm"
-                  >
-                    Privacy Policy
-                  </a>
-                  <a
-                    href="#"
-                    className="text-atlas-gray-500 transition-colors hover:text-atlas-teal text-sm"
-                  >
-                    Follow Us
-                  </a>
-                </div>
-              </div>
-            </div>
-          </footer>
         </div>
       </main>
     </ErrorBoundary>
