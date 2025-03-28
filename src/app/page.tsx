@@ -641,117 +641,257 @@ export default function Home() {
                 </h2>
               </div>
 
-              <div className="grid gap-8 lg:grid-cols-2">
-                {/* Vision & Leadership */}
-                <motion.div
-                  className="relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 backdrop-blur-sm"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
-                  <div className="relative space-y-6">
-                    <motion.div
-                      className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
-                      whileHover={{ rotate: 5 }}
-                    >
-                      <Brain className="h-7 w-7" weight="light" />
-                    </motion.div>
-                    <div>
-                      <h3 className="font-display text-2xl font-bold text-white mb-4">
-                        Vision & Leadership
-                      </h3>
-                      <p className="text-atlas-gray-400 leading-relaxed">
-                        At Atlas, we're a diverse collective of innovators
-                        driven by a shared vision for the future of Web 3.0. Our
-                        team blends deep expertise in blockchain, fintech, and
-                        AI, with developers who have been embedded in the Web
-                        3.0 space since its earliest days.
-                      </p>
-                      <div className="mt-6 grid grid-cols-2 gap-6">
-                        <div className="space-y-2 border-l-2 border-atlas-teal/30 pl-4">
-                          <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                            Leadership
-                          </h4>
-                          <ul className="space-y-2 text-sm text-atlas-gray-400">
-                            <li>CEO with DeFi scaling expertise</li>
-                            <li>CTO specializing in AI & blockchain</li>
-                            <li>Chief Fintech Officer</li>
-                            <li>Chief Compliance Officer</li>
-                          </ul>
-                        </div>
-                        <div className="space-y-2 border-l-2 border-atlas-teal/30 pl-4">
-                          <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                            Expertise
-                          </h4>
-                          <ul className="space-y-2 text-sm text-atlas-gray-400">
-                            <li>Blockchain Development</li>
-                            <li>AI Integration</li>
-                            <li>Global Payments</li>
-                            <li>Regulatory Compliance</li>
-                          </ul>
-                        </div>
+              {/* Vision & Leadership and Independence & Values Cards */}
+              <div className="mt-20 relative mx-auto max-w-7xl">
+                <div className="grid grid-cols-12 gap-6">
+                  {/* Vision & Leadership - Largest Box */}
+                  <motion.div
+                    className="col-span-12 lg:col-span-7 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
+                    <div className="relative space-y-8">
+                      <div className="flex items-center gap-4">
+                        <motion.div
+                          className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                          whileHover={{ rotate: 5 }}
+                        >
+                          <Brain className="h-7 w-7" weight="light" />
+                        </motion.div>
+                        <h3 className="font-display text-2xl font-bold text-white">
+                          Vision & Leadership
+                        </h3>
                       </div>
-                    </div>
-                  </div>
-                </motion.div>
 
-                {/* Independence & Values */}
-                <motion.div
-                  className="relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 backdrop-blur-sm"
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
-                  <div className="relative space-y-6">
-                    <motion.div
-                      className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
-                      whileHover={{ rotate: -5 }}
-                    >
-                      <Crown className="h-7 w-7" weight="light" />
-                    </motion.div>
-                    <div>
-                      <h3 className="font-display text-2xl font-bold text-white mb-4">
-                        Independence & Values
-                      </h3>
-                      <p className="text-atlas-gray-400 leading-relaxed">
-                        We remain a private, founder-funded venture—choosing to
-                        forgo external seed funding to preserve creative
-                        autonomy and prioritize user-focused development. This
-                        independence allows us to build with intention,
-                        delivering unmatched transparency, integrity, and
-                        innovation in the decentralized ecosystem.
-                      </p>
-                      <div className="mt-6 grid grid-cols-2 gap-6">
-                        <div className="space-y-2 border-l-2 border-atlas-teal/30 pl-4">
-                          <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                            Core Values
-                          </h4>
-                          <ul className="space-y-2 text-sm text-atlas-gray-400">
-                            <li>User-First Development</li>
-                            <li>Creative Autonomy</li>
-                            <li>Transparency</li>
-                            <li>Innovation</li>
-                          </ul>
+                      <div className="relative space-y-8">
+                        <div className="prose prose-invert max-w-none">
+                          <p className="text-atlas-gray-400 leading-relaxed">
+                            At Atlas, we're a diverse collective of innovators
+                            driven by a shared vision for the future of Web 3.0.
+                            Our team blends deep expertise in blockchain,
+                            fintech, and AI, with developers who have been
+                            embedded in the Web 3.0 space since its earliest
+                            days.
+                          </p>
                         </div>
-                        <div className="space-y-2 border-l-2 border-atlas-teal/30 pl-4">
-                          <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                            Approach
-                          </h4>
-                          <ul className="space-y-2 text-sm text-atlas-gray-400">
-                            <li>Founder-Funded</li>
-                            <li>Independent Development</li>
-                            <li>Long-Term Vision</li>
-                            <li>Quality-Driven</li>
-                          </ul>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
+                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
+                            <div className="relative space-y-4">
+                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                                Leadership
+                              </h4>
+                              <ul className="space-y-3 text-sm text-atlas-gray-400">
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">CEO</span> with
+                                  DeFi scaling expertise
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">CTO</span>{" "}
+                                  specializing in AI & blockchain
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Chief Fintech Officer
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Chief Compliance Officer
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
+                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
+                            <div className="relative space-y-4">
+                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                                Expertise
+                              </h4>
+                              <ul className="space-y-3 text-sm text-atlas-gray-400">
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Blockchain Development
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    AI Integration
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Global Payments
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Regulatory Compliance
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+
+                  {/* Brand Quote - Small Emphasis Box */}
+                  <motion.div
+                    className="col-span-12 lg:col-span-5 row-span-1 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                  >
+                    <div className="absolute inset-0">
+                      <div className="absolute inset-0 bg-gradient-to-b from-atlas-teal/5 via-transparent to-transparent opacity-30" />
+                      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px]" />
+                    </div>
+                    <div className="relative h-full flex flex-col items-center justify-center text-center space-y-6">
+                      <motion.div
+                        className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <Shield className="h-8 w-8" weight="light" />
+                      </motion.div>
+                      <div className="space-y-4">
+                        <h3 className="font-display text-3xl font-bold text-white leading-tight">
+                          "We're not just building tools — we're building
+                          trust."
+                        </h3>
+                        <p className="text-lg text-atlas-gray-400 leading-relaxed max-w-sm mx-auto">
+                          Atlas exists to serve the builders of tomorrow, not
+                          the investors of yesterday.
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Independence & Values - Medium Box */}
+                  <motion.div
+                    className="col-span-12 lg:col-span-12 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
+                    <div className="relative space-y-8">
+                      <div className="flex items-center gap-4">
+                        <motion.div
+                          className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                          whileHover={{ rotate: -5 }}
+                        >
+                          <Crown className="h-7 w-7" weight="light" />
+                        </motion.div>
+                        <h3 className="font-display text-2xl font-bold text-white">
+                          Independence & Values
+                        </h3>
+                      </div>
+
+                      <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div className="prose prose-invert max-w-none lg:col-span-1">
+                          <p className="text-atlas-gray-400 leading-relaxed">
+                            We remain a private, founder-funded venture—choosing
+                            to forgo external seed funding to preserve creative
+                            autonomy and prioritize user-focused development.
+                            This independence allows us to build with intention,
+                            delivering unmatched transparency, integrity, and
+                            innovation in the decentralized ecosystem.
+                          </p>
+                        </div>
+
+                        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
+                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
+                            <div className="relative space-y-4">
+                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                                Core Values
+                              </h4>
+                              <ul className="space-y-3 text-sm text-atlas-gray-400">
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    User-First Development
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Creative Autonomy
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Transparency
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Innovation
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
+                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
+                            <div className="relative space-y-4">
+                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
+                                Approach
+                              </h4>
+                              <ul className="space-y-3 text-sm text-atlas-gray-400">
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Founder-Funded
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Independent Development
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Long-Term Vision
+                                  </span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
+                                  <span className="font-medium">
+                                    Quality-Driven
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
 
               {/* Security & Compliance Section */}
