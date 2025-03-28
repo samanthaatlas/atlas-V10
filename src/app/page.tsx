@@ -883,122 +883,274 @@ export default function Home() {
                       </p>
                     </div>
 
-                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                      <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-6"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
+                    <div className="grid gap-12 lg:grid-cols-2">
+                      {/* Certifications & Compliance Column */}
+                      <div className="space-y-8">
+                        {/* Certifications */}
                         <div className="space-y-4">
-                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
-                            <Shield className="h-6 w-6" weight="light" />
+                          <div className="flex items-center gap-3">
+                            <Shield
+                              className="h-5 w-5 text-atlas-teal"
+                              weight="light"
+                            />
+                            <h4 className="font-display text-lg font-bold text-white">
+                              Certifications
+                            </h4>
                           </div>
-                          <h4 className="font-display text-lg font-bold text-white">
-                            Certifications
-                          </h4>
-                          <ul className="space-y-2 text-sm text-atlas-gray-400">
-                            <li className="flex items-center gap-2">
-                              <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                          <div className="space-y-4">
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm text-atlas-gray-400">
+                                  ISO/IEC 27001
+                                </span>
+                                <span className="text-sm text-atlas-gray-400">
+                                  60%
+                                </span>
+                              </div>
+                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                                <motion.div
+                                  className="h-full rounded-full bg-atlas-teal/70"
+                                  initial={{ width: 0 }}
+                                  whileInView={{ width: "60%" }}
+                                  viewport={{ once: true }}
+                                  transition={{ duration: 1, ease: "easeOut" }}
+                                />
+                              </div>
+                              <span className="text-xs text-atlas-gray-500">
+                                Status: In Progress • ETA: Q2 2025
                               </span>
-                              ISO/IEC 27001 (In Progress)
-                            </li>
-                            <li className="flex items-center gap-2">
-                              <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm text-atlas-gray-400">
+                                  SOC 2
+                                </span>
+                                <span className="text-sm text-atlas-gray-400">
+                                  50%
+                                </span>
+                              </div>
+                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                                <motion.div
+                                  className="h-full rounded-full bg-atlas-teal/70"
+                                  initial={{ width: 0 }}
+                                  whileInView={{ width: "50%" }}
+                                  viewport={{ once: true }}
+                                  transition={{
+                                    duration: 1,
+                                    ease: "easeOut",
+                                    delay: 0.2,
+                                  }}
+                                />
+                              </div>
+                              <span className="text-xs text-atlas-gray-500">
+                                Status: In Progress • ETA: Q3 2025
                               </span>
-                              SOC 2 (In Progress)
-                            </li>
-                            <li className="flex items-center gap-2">
-                              <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm text-atlas-gray-400">
+                                  Security Audits
+                                </span>
+                                <span className="text-sm text-atlas-gray-400">
+                                  30%
+                                </span>
+                              </div>
+                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                                <motion.div
+                                  className="h-full rounded-full bg-atlas-teal/70"
+                                  initial={{ width: 0 }}
+                                  whileInView={{ width: "30%" }}
+                                  viewport={{ once: true }}
+                                  transition={{
+                                    duration: 1,
+                                    ease: "easeOut",
+                                    delay: 0.4,
+                                  }}
+                                />
+                              </div>
+                              <span className="text-xs text-atlas-gray-500">
+                                Status: Scheduled • ETA: Q4 2025
                               </span>
-                              Security Audits (Scheduled)
-                            </li>
-                          </ul>
+                            </div>
+                          </div>
                         </div>
-                      </motion.div>
 
-                      <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-6"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
+                        {/* Compliance */}
                         <div className="space-y-4">
-                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
-                            <LockKey className="h-6 w-6" weight="light" />
+                          <div className="flex items-center gap-3">
+                            <Scales
+                              className="h-5 w-5 text-atlas-teal"
+                              weight="light"
+                            />
+                            <h4 className="font-display text-lg font-bold text-white">
+                              Compliance
+                            </h4>
                           </div>
-                          <h4 className="font-display text-lg font-bold text-white">
-                            Data Protection
-                          </h4>
-                          <ul className="space-y-2 text-sm text-atlas-gray-400">
-                            <li>End-to-End Encryption</li>
-                            <li>Role-Based Access</li>
-                            <li>Data Anonymization</li>
-                          </ul>
+                          <div className="space-y-4">
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm text-atlas-gray-400">
+                                  GDPR Alignment
+                                </span>
+                                <span className="text-sm text-atlas-gray-400">
+                                  70%
+                                </span>
+                              </div>
+                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                                <motion.div
+                                  className="h-full rounded-full bg-atlas-teal/70"
+                                  initial={{ width: 0 }}
+                                  whileInView={{ width: "70%" }}
+                                  viewport={{ once: true }}
+                                  transition={{ duration: 1, ease: "easeOut" }}
+                                />
+                              </div>
+                              <span className="text-xs text-atlas-gray-500">
+                                Status: In Progress • ETA: Q2 2025
+                              </span>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm text-atlas-gray-400">
+                                  CCPA Compliance
+                                </span>
+                                <span className="text-sm text-atlas-gray-400">
+                                  60%
+                                </span>
+                              </div>
+                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                                <motion.div
+                                  className="h-full rounded-full bg-atlas-teal/70"
+                                  initial={{ width: 0 }}
+                                  whileInView={{ width: "60%" }}
+                                  viewport={{ once: true }}
+                                  transition={{
+                                    duration: 1,
+                                    ease: "easeOut",
+                                    delay: 0.2,
+                                  }}
+                                />
+                              </div>
+                              <span className="text-xs text-atlas-gray-500">
+                                Status: In Progress • ETA: Q3 2025
+                              </span>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm text-atlas-gray-400">
+                                  AML/KYC Framework
+                                </span>
+                                <span className="text-sm text-atlas-gray-400">
+                                  35%
+                                </span>
+                              </div>
+                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                                <motion.div
+                                  className="h-full rounded-full bg-atlas-teal/70"
+                                  initial={{ width: 0 }}
+                                  whileInView={{ width: "35%" }}
+                                  viewport={{ once: true }}
+                                  transition={{
+                                    duration: 1,
+                                    ease: "easeOut",
+                                    delay: 0.4,
+                                  }}
+                                />
+                              </div>
+                              <span className="text-xs text-atlas-gray-500">
+                                Status: In Development • ETA: Q4 2025
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                      </motion.div>
+                      </div>
 
-                      <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-6"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
+                      {/* Data Protection & Monitoring Column */}
+                      <div className="space-y-8">
+                        {/* Data Protection */}
                         <div className="space-y-4">
-                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
-                            <Scales className="h-6 w-6" weight="light" />
+                          <div className="flex items-center gap-3">
+                            <LockKey
+                              className="h-5 w-5 text-atlas-teal"
+                              weight="light"
+                            />
+                            <h4 className="font-display text-lg font-bold text-white">
+                              Data Protection
+                            </h4>
                           </div>
-                          <h4 className="font-display text-lg font-bold text-white">
-                            Compliance
-                          </h4>
-                          <ul className="space-y-2 text-sm text-atlas-gray-400">
-                            <li className="flex items-center gap-2">
-                              <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
-                              </span>
-                              GDPR Alignment (In Progress)
+                          <ul className="grid gap-3 text-sm text-atlas-gray-400">
+                            <li className="flex items-center gap-3">
+                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                                <CheckSquare
+                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  weight="fill"
+                                />
+                              </div>
+                              <span>End-to-End Encryption</span>
                             </li>
-                            <li className="flex items-center gap-2">
-                              <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
-                              </span>
-                              CCPA Compliance (In Progress)
+                            <li className="flex items-center gap-3">
+                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                                <CheckSquare
+                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  weight="fill"
+                                />
+                              </div>
+                              <span>Role-Based Access</span>
                             </li>
-                            <li className="flex items-center gap-2">
-                              <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
-                              </span>
-                              AML/KYC Framework (In Development)
+                            <li className="flex items-center gap-3">
+                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                                <CheckSquare
+                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  weight="fill"
+                                />
+                              </div>
+                              <span>Data Anonymization</span>
                             </li>
                           </ul>
                         </div>
-                      </motion.div>
 
-                      <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-atlas-gray-800/30 p-6"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
+                        {/* Monitoring */}
                         <div className="space-y-4">
-                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25">
-                            <Eye className="h-6 w-6" weight="light" />
+                          <div className="flex items-center gap-3">
+                            <Eye
+                              className="h-5 w-5 text-atlas-teal"
+                              weight="light"
+                            />
+                            <h4 className="font-display text-lg font-bold text-white">
+                              Monitoring
+                            </h4>
                           </div>
-                          <h4 className="font-display text-lg font-bold text-white">
-                            Monitoring
-                          </h4>
-                          <ul className="space-y-2 text-sm text-atlas-gray-400">
-                            <li>Dark Web Monitoring</li>
-                            <li>Address Flagging</li>
-                            <li>Smart Contract Audits</li>
+                          <ul className="grid gap-3 text-sm text-atlas-gray-400">
+                            <li className="flex items-center gap-3">
+                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                                <CheckSquare
+                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  weight="fill"
+                                />
+                              </div>
+                              <span>Dark Web Monitoring</span>
+                            </li>
+                            <li className="flex items-center gap-3">
+                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                                <CheckSquare
+                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  weight="fill"
+                                />
+                              </div>
+                              <span>Address Flagging</span>
+                            </li>
+                            <li className="flex items-center gap-3">
+                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                                <CheckSquare
+                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  weight="fill"
+                                />
+                              </div>
+                              <span>Smart Contract Audits</span>
+                            </li>
                           </ul>
                         </div>
-                      </motion.div>
+                      </div>
                     </div>
                   </div>
                 </div>
