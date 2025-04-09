@@ -1,11 +1,10 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/Button";
-import { Section } from "@/components/ui/Section";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/Button';
+import { Section } from '@/components/ui/Section';
+import dynamic from 'next/dynamic';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import {
   Cube,
   CheckSquare,
@@ -26,14 +25,14 @@ import {
   Eye,
   Graph,
   Bell,
-} from "@phosphor-icons/react";
-import { useState, useCallback } from "react";
-import { cn } from "@/lib/utils";
+} from '@phosphor-icons/react';
+import { useState, useCallback } from 'react';
+import { cn } from '@/lib/utils';
 
 // Dynamic imports for code splitting
 const DynamicScreenshotShowcase = dynamic(
   () =>
-    import("@/components/ui/ScreenshotShowcase").then((mod) => ({
+    import('@/components/ui/ScreenshotShowcase').then((mod) => ({
       default: mod.ScreenshotShowcase,
     })),
   {
@@ -47,20 +46,20 @@ const DynamicScreenshotShowcase = dynamic(
 // Memoize static data
 const SCREENSHOTS = [
   {
-    src: "/screenshots/dashboard.png",
-    alt: "Atlas Dashboard - Interactive blockchain data visualization",
+    src: '/screenshots/dashboard.png',
+    alt: 'Atlas Dashboard - Interactive blockchain data visualization',
     width: 1920,
     height: 1080,
   },
   {
-    src: "/screenshots/analytics.png",
-    alt: "Analytics View - Comprehensive blockchain analytics interface",
+    src: '/screenshots/analytics.png',
+    alt: 'Analytics View - Comprehensive blockchain analytics interface',
     width: 1920,
     height: 1080,
   },
   {
-    src: "/screenshots/transactions.png",
-    alt: "Transaction Explorer - Detailed blockchain transaction analysis",
+    src: '/screenshots/transactions.png',
+    alt: 'Transaction Explorer - Detailed blockchain transaction analysis',
     width: 1920,
     height: 1080,
   },
@@ -68,75 +67,75 @@ const SCREENSHOTS = [
 
 const stats = [
   {
-    label: "Transactions Processed in Private Beta",
-    value: "1.2M+",
+    label: 'Transactions Processed in Private Beta',
+    value: '1.2M+',
   },
   {
-    label: "Blocks Analyzed in Private Beta",
-    value: "850K+",
+    label: 'Blocks Analyzed in Private Beta',
+    value: '850K+',
   },
   {
-    label: "Wallets Monitored with Live Alerts",
-    value: "30K+",
+    label: 'Wallets Monitored with Live Alerts',
+    value: '30K+',
   },
   {
-    label: "Smart Contract Events Parsed",
-    value: "50K+",
+    label: 'Smart Contract Events Parsed',
+    value: '50K+',
   },
   {
-    label: "EVM-Compatible Blockchains",
-    value: "5+",
+    label: 'EVM-Compatible Blockchains',
+    value: '5+',
   },
   {
-    label: "Dark Web Signals Tracked & Correlated",
-    value: "2.5K+",
+    label: 'Dark Web Signals Tracked & Correlated',
+    value: '2.5K+',
   },
 ];
 
 const services = [
   {
-    title: "Block Explorer",
-    description: "Real-time blockchain data visualization and exploration.",
+    title: 'Block Explorer',
+    description: 'Real-time blockchain data visualization and exploration.',
     icon: <Cube className="h-6 w-6" weight="light" />,
   },
   {
-    title: "Transaction Tracking",
-    description: "Instant transaction monitoring and analysis.",
+    title: 'Transaction Tracking',
+    description: 'Instant transaction monitoring and analysis.',
     icon: <CheckSquare className="h-6 w-6" weight="light" />,
   },
   {
-    title: "Smart Contract Analysis",
-    description: "Interactive smart contract auditing and testing.",
+    title: 'Smart Contract Analysis',
+    description: 'Interactive smart contract auditing and testing.',
     icon: <Code className="h-6 w-6" weight="light" />,
   },
   {
-    title: "Network Analytics",
-    description: "Cross-chain insights and network monitoring.",
+    title: 'Network Analytics',
+    description: 'Cross-chain insights and network monitoring.',
     icon: <ChartLine className="h-6 w-6" weight="light" />,
   },
   {
-    title: "AtlasInsight Engine",
-    description: "AI-powered pattern detection and threat analysis.",
+    title: 'AtlasInsight Engine',
+    description: 'AI-powered pattern detection and threat analysis.',
     icon: <Brain className="h-6 w-6" weight="light" />,
   },
   {
-    title: "Heuristics Layer",
-    description: "Advanced wallet behavior analysis and clustering.",
+    title: 'Heuristics Layer',
+    description: 'Advanced wallet behavior analysis and clustering.',
     icon: <Graph className="h-6 w-6" weight="light" />,
   },
   {
-    title: "Dark Web Monitoring",
-    description: "Proactive off-chain threat detection.",
+    title: 'Dark Web Monitoring',
+    description: 'Proactive off-chain threat detection.',
     icon: <Eye className="h-6 w-6" weight="light" />,
   },
   {
-    title: "Risk Alerts",
-    description: "Real-time high-risk activity notifications.",
+    title: 'Risk Alerts',
+    description: 'Real-time high-risk activity notifications.',
     icon: <Bell className="h-6 w-6" weight="light" />,
   },
   {
-    title: "Enterprise Tools",
-    description: "Secure team collaboration with audit trails.",
+    title: 'Enterprise Tools',
+    description: 'Secure team collaboration with audit trails.',
     icon: <Users className="h-6 w-6" weight="light" />,
   },
 ];
@@ -153,15 +152,15 @@ const RATE_LIMIT = {
 
 // Add this new component near the top of the file, after imports
 const PageBreak = ({
-  variant = "default",
+  variant = 'default',
 }: {
-  variant?: "default" | "hero";
+  variant?: 'default' | 'hero';
 }) => {
   return (
     <motion.div
       className={cn(
-        "relative",
-        variant === "hero" ? "w-full" : "px-4 sm:px-6 max-w-5xl mx-auto"
+        'relative',
+        variant === 'hero' ? 'w-full' : 'px-4 sm:px-6 max-w-5xl mx-auto'
       )}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -171,10 +170,10 @@ const PageBreak = ({
       <div className="absolute inset-0 flex items-center" aria-hidden="true">
         <div
           className={cn(
-            "w-full border-t border-atlas-teal/30",
-            variant === "hero"
-              ? "bg-gradient-to-r from-transparent via-atlas-teal/30 to-transparent"
-              : ""
+            'w-full border-t border-atlas-teal/30',
+            variant === 'hero'
+              ? 'bg-gradient-to-r from-transparent via-atlas-teal/30 to-transparent'
+              : ''
           )}
         />
       </div>
@@ -188,7 +187,7 @@ const PageBreak = ({
             }}
             transition={{
               duration: 2,
-              ease: "easeInOut",
+              ease: 'easeInOut',
               times: [0, 0.5, 1],
               repeat: Infinity,
               repeatDelay: 3,
@@ -203,8 +202,8 @@ const PageBreak = ({
 };
 
 export default function Home() {
-  const [email, setEmail] = useState("");
-  const [formError, setFormError] = useState("");
+  const [email, setEmail] = useState('');
+  const [formError, setFormError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const [submitAttempts, setSubmitAttempts] = useState(0);
@@ -240,16 +239,16 @@ export default function Home() {
 
       // Validation
       if (!email.trim()) {
-        setFormError("Email is required");
+        setFormError('Email is required');
         return;
       }
       if (!validateEmail(email)) {
-        setFormError("Please enter a valid email address");
+        setFormError('Please enter a valid email address');
         return;
       }
 
       setIsSubmitting(true);
-      setFormError("");
+      setFormError('');
 
       try {
         // Add CSRF token handling
@@ -259,11 +258,11 @@ export default function Home() {
 
         // Here you would add your API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        setEmail("");
+        setEmail('');
         // Show success message
       } catch (error) {
-        setFormError("An error occurred. Please try again.");
-        console.error("Form submission error:", error);
+        setFormError('An error occurred. Please try again.');
+        console.error('Form submission error:', error);
       } finally {
         setIsSubmitting(false);
       }
@@ -282,14 +281,14 @@ export default function Home() {
 
     window.scrollTo({
       top: sectionTop,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   }, []);
 
   // Enhanced keyboard navigation
   const handleKeyPress = useCallback(
     (e: React.KeyboardEvent, sectionId: string) => {
-      if (e.key === "Enter" || e.key === " ") {
+      if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         scrollToSection(sectionId);
       }
@@ -330,40 +329,40 @@ export default function Home() {
               animate={{
                 opacity: isMenuOpen ? 1 : 0.5,
                 x: isMenuOpen ? 0 : 200,
-                transition: { type: "spring", stiffness: 300, damping: 30 },
+                transition: { type: 'spring', stiffness: 300, damping: 30 },
               }}
               className={cn(
-                "flex flex-col gap-3 rounded-2xl bg-atlas-gray-900/95 p-3 shadow-xl backdrop-blur-sm border border-atlas-gray-700",
-                "transition-shadow duration-300 ease-in-out touch-pan-x",
-                isMenuOpen ? "shadow-2xl" : "shadow-lg"
+                'flex flex-col gap-3 rounded-2xl bg-atlas-gray-900/95 p-3 shadow-xl backdrop-blur-sm border border-atlas-gray-700',
+                'transition-shadow duration-300 ease-in-out touch-pan-x',
+                isMenuOpen ? 'shadow-2xl' : 'shadow-lg'
               )}
             >
               {[
-                { id: "hero", icon: <House weight="light" />, label: "Home" },
+                { id: 'hero', icon: <House weight="light" />, label: 'Home' },
                 {
-                  id: "key-features",
+                  id: 'key-features',
                   icon: <Layout weight="light" />,
-                  label: "Features",
+                  label: 'Features',
                 },
                 {
-                  id: "security",
+                  id: 'security',
                   icon: <Shield weight="light" />,
-                  label: "Security",
+                  label: 'Security',
                 },
                 {
-                  id: "about",
+                  id: 'about',
                   icon: <Users weight="light" />,
-                  label: "About",
+                  label: 'About',
                 },
                 {
-                  id: "experience",
+                  id: 'experience',
                   icon: <Rocket weight="light" />,
-                  label: "Experience",
+                  label: 'Experience',
                 },
                 {
-                  id: "cta",
+                  id: 'cta',
                   icon: <PaperPlaneTilt weight="light" />,
-                  label: "Contact",
+                  label: 'Contact',
                 },
               ].map((item) => (
                 <motion.button
@@ -386,14 +385,14 @@ export default function Home() {
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={cn(
-                "absolute -left-3 top-2 rounded-full border border-atlas-gray-700 bg-atlas-gray-900 p-2 text-atlas-teal shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black",
-                "hover:bg-atlas-gray-800",
-                !isMenuOpen && "bg-opacity-50 hover:bg-opacity-100"
+                'absolute -left-3 top-2 rounded-full border border-atlas-gray-700 bg-atlas-gray-900 p-2 text-atlas-teal shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black',
+                'hover:bg-atlas-gray-800',
+                !isMenuOpen && 'bg-opacity-50 hover:bg-opacity-100'
               )}
               aria-label={
-                isMenuOpen ? "Hide navigation menu" : "Show navigation menu"
+                isMenuOpen ? 'Hide navigation menu' : 'Show navigation menu'
               }
-              title={isMenuOpen ? "Hide menu" : "Show menu"}
+              title={isMenuOpen ? 'Hide menu' : 'Show menu'}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               animate={{
@@ -446,7 +445,7 @@ export default function Home() {
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeInOut",
+                    ease: 'easeInOut',
                   }}
                 >
                   <span className="relative flex h-1.5 sm:h-2 w-1.5 sm:w-2">
@@ -459,7 +458,7 @@ export default function Home() {
                   id="hero-title"
                   className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl px-4 sm:px-0"
                 >
-                  <span className="text-gradient">Unlock</span> the Blockchain{" "}
+                  <span className="text-gradient">Unlock</span> the Blockchain{' '}
                   <span className="text-gradient">Universe</span>
                 </h1>
                 <p className="mx-auto max-w-2xl text-sm sm:text-lg leading-relaxed text-atlas-gray-400 md:text-xl px-4 sm:px-0">
@@ -478,7 +477,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   variant="secondary"
-                  onClick={() => scrollToSection("key-features")}
+                  onClick={() => scrollToSection('key-features')}
                   className="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-8 py-2.5 sm:py-3"
                 >
                   Learn More
@@ -580,20 +579,20 @@ export default function Home() {
                       setExpandedFeature(expandedFeature === index ? -1 : index)
                     }
                     className={cn(
-                      "group relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-3 text-left transition-all",
+                      'group relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-3 text-left transition-all',
                       expandedFeature === index
-                        ? "col-span-2 min-h-[120px]"
-                        : "min-h-[80px]"
+                        ? 'col-span-2 min-h-[120px]'
+                        : 'min-h-[80px]'
                     )}
                   >
                     <div className="flex items-start gap-2">
                       <div className="shrink-0">
                         <div
                           className={cn(
-                            "inline-flex h-6 w-6 items-center justify-center rounded-lg bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 transition-all duration-200",
+                            'inline-flex h-6 w-6 items-center justify-center rounded-lg bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 transition-all duration-200',
                             expandedFeature === index
-                              ? "scale-110"
-                              : "group-hover:scale-110"
+                              ? 'scale-110'
+                              : 'group-hover:scale-110'
                           )}
                         >
                           {service.icon}
@@ -602,10 +601,10 @@ export default function Home() {
                       <div className="flex-1">
                         <h3
                           className={cn(
-                            "font-display text-sm font-bold text-white transition-colors",
+                            'font-display text-sm font-bold text-white transition-colors',
                             expandedFeature === index
-                              ? "text-atlas-teal"
-                              : "group-hover:text-atlas-teal"
+                              ? 'text-atlas-teal'
+                              : 'group-hover:text-atlas-teal'
                           )}
                         >
                           {service.title}
@@ -613,7 +612,7 @@ export default function Home() {
                         <motion.p
                           initial={false}
                           animate={{
-                            height: expandedFeature === index ? "auto" : 0,
+                            height: expandedFeature === index ? 'auto' : 0,
                             opacity: expandedFeature === index ? 1 : 0,
                           }}
                           transition={{ duration: 0.2 }}
@@ -690,9 +689,9 @@ export default function Home() {
                                 <motion.div
                                   className="h-full rounded-full bg-atlas-teal/70"
                                   initial={{ width: 0 }}
-                                  whileInView={{ width: "60%" }}
+                                  whileInView={{ width: '60%' }}
                                   viewport={{ once: true }}
-                                  transition={{ duration: 1, ease: "easeOut" }}
+                                  transition={{ duration: 1, ease: 'easeOut' }}
                                 />
                               </div>
                               <span className="text-[10px] sm:text-xs text-atlas-gray-500">
@@ -711,9 +710,9 @@ export default function Home() {
                                 <motion.div
                                   className="h-full rounded-full bg-atlas-teal/70"
                                   initial={{ width: 0 }}
-                                  whileInView={{ width: "75%" }}
+                                  whileInView={{ width: '75%' }}
                                   viewport={{ once: true }}
-                                  transition={{ duration: 1, ease: "easeOut" }}
+                                  transition={{ duration: 1, ease: 'easeOut' }}
                                 />
                               </div>
                               <span className="text-[10px] sm:text-xs text-atlas-gray-500">
@@ -732,9 +731,9 @@ export default function Home() {
                                 <motion.div
                                   className="h-full rounded-full bg-atlas-teal/70"
                                   initial={{ width: 0 }}
-                                  whileInView={{ width: "90%" }}
+                                  whileInView={{ width: '90%' }}
                                   viewport={{ once: true }}
-                                  transition={{ duration: 1, ease: "easeOut" }}
+                                  transition={{ duration: 1, ease: 'easeOut' }}
                                 />
                               </div>
                               <span className="text-[10px] sm:text-xs text-atlas-gray-500">
@@ -753,9 +752,9 @@ export default function Home() {
                                 <motion.div
                                   className="h-full rounded-full bg-atlas-teal/70"
                                   initial={{ width: 0 }}
-                                  whileInView={{ width: "45%" }}
+                                  whileInView={{ width: '45%' }}
                                   viewport={{ once: true }}
-                                  transition={{ duration: 1, ease: "easeOut" }}
+                                  transition={{ duration: 1, ease: 'easeOut' }}
                                 />
                               </div>
                               <span className="text-[10px] sm:text-xs text-atlas-gray-500">
@@ -794,11 +793,11 @@ export default function Home() {
                                     <motion.div
                                       className="h-full rounded-full bg-atlas-teal/70"
                                       initial={{ width: 0 }}
-                                      whileInView={{ width: "100%" }}
+                                      whileInView={{ width: '100%' }}
                                       viewport={{ once: true }}
                                       transition={{
                                         duration: 1,
-                                        ease: "easeOut",
+                                        ease: 'easeOut',
                                       }}
                                     />
                                   </div>
@@ -819,11 +818,11 @@ export default function Home() {
                                     <motion.div
                                       className="h-full rounded-full bg-atlas-teal/70"
                                       initial={{ width: 0 }}
-                                      whileInView={{ width: "100%" }}
+                                      whileInView={{ width: '100%' }}
                                       viewport={{ once: true }}
                                       transition={{
                                         duration: 1,
-                                        ease: "easeOut",
+                                        ease: 'easeOut',
                                       }}
                                     />
                                   </div>
@@ -844,11 +843,11 @@ export default function Home() {
                                     <motion.div
                                       className="h-full rounded-full bg-atlas-teal/70"
                                       initial={{ width: 0 }}
-                                      whileInView={{ width: "100%" }}
+                                      whileInView={{ width: '100%' }}
                                       viewport={{ once: true }}
                                       transition={{
                                         duration: 1,
-                                        ease: "easeOut",
+                                        ease: 'easeOut',
                                       }}
                                     />
                                   </div>
@@ -869,11 +868,11 @@ export default function Home() {
                                     <motion.div
                                       className="h-full rounded-full bg-atlas-teal/70"
                                       initial={{ width: 0 }}
-                                      whileInView={{ width: "100%" }}
+                                      whileInView={{ width: '100%' }}
                                       viewport={{ once: true }}
                                       transition={{
                                         duration: 1,
-                                        ease: "easeOut",
+                                        ease: 'easeOut',
                                       }}
                                     />
                                   </div>
@@ -894,11 +893,11 @@ export default function Home() {
                                     <motion.div
                                       className="h-full rounded-full bg-atlas-teal/70"
                                       initial={{ width: 0 }}
-                                      whileInView={{ width: "100%" }}
+                                      whileInView={{ width: '100%' }}
                                       viewport={{ once: true }}
                                       transition={{
                                         duration: 1,
-                                        ease: "easeOut",
+                                        ease: 'easeOut',
                                       }}
                                     />
                                   </div>
@@ -919,11 +918,11 @@ export default function Home() {
                                     <motion.div
                                       className="h-full rounded-full bg-atlas-teal/70"
                                       initial={{ width: 0 }}
-                                      whileInView={{ width: "100%" }}
+                                      whileInView={{ width: '100%' }}
                                       viewport={{ once: true }}
                                       transition={{
                                         duration: 1,
-                                        ease: "easeOut",
+                                        ease: 'easeOut',
                                       }}
                                     />
                                   </div>
@@ -1154,7 +1153,7 @@ export default function Home() {
                     placeholder="Enter your email"
                     className="w-full rounded-lg border-2 border-atlas-gray-700 bg-atlas-gray-800/50 px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-white placeholder-atlas-gray-500 backdrop-blur-sm transition-colors focus:border-atlas-teal focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black disabled:opacity-50"
                     disabled={isSubmitting}
-                    aria-describedby={formError ? "form-error" : undefined}
+                    aria-describedby={formError ? 'form-error' : undefined}
                     required
                   />
                   {formError && (
@@ -1172,9 +1171,9 @@ export default function Home() {
                   type="submit"
                   className="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-8 py-2 sm:py-3 disabled:opacity-50"
                   disabled={isSubmitting}
-                  aria-label={isSubmitting ? "Submitting..." : "Get Started"}
+                  aria-label={isSubmitting ? 'Submitting...' : 'Get Started'}
                 >
-                  {isSubmitting ? "Submitting..." : "Get Started"}
+                  {isSubmitting ? 'Submitting...' : 'Get Started'}
                 </Button>
               </form>
             </div>
@@ -1199,7 +1198,7 @@ export default function Home() {
                   <button
                     onClick={() =>
                       (window.location.href =
-                        "mailto:contact@atlasexplorer.com")
+                        'mailto:contact@atlasexplorer.com')
                     }
                     className="text-atlas-gray-500 transition-colors hover:text-atlas-teal focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black text-[10px] sm:text-sm active:scale-95"
                     aria-label="Contact us via email"
