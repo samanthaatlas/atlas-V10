@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { Section } from '@/components/ui/Section';
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import {
   Cube,
@@ -25,6 +26,7 @@ import {
 } from '@phosphor-icons/react';
 import { useState, useCallback } from 'react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 // Dynamic imports for code splitting
 const DynamicScreenshotShowcase = dynamic(
@@ -297,6 +299,18 @@ export default function Home() {
     <ErrorBoundary>
       <main className="relative min-h-screen bg-atlas-black" role="main">
         <div className="absolute inset-0 bg-dark-gradient" />
+
+        {/* Logo */}
+        <div className="fixed top-4 left-4 z-50">
+          <Image
+            src="/atlas1.png"
+            alt="Atlas Logo"
+            width={120}
+            height={40}
+            className="object-contain"
+            priority
+          />
+        </div>
 
         {/* Floating Navigation */}
         <div

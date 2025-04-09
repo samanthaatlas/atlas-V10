@@ -1,8 +1,7 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
-  fallback?: ReactNode;
 }
 
 interface State {
@@ -14,7 +13,7 @@ class ErrorBoundary extends Component<Props, State> {
     hasError: false,
   };
 
-  public static getDerivedStateFromError(): State {
+  public static getDerivedStateFromError(_: Error): State {
     return { hasError: true };
   }
 
@@ -25,18 +24,16 @@ class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        this.props.fallback || (
-          <div className="min-h-screen flex items-center justify-center bg-gray-50">
-            <div className="text-center">
-              <h2 className="text-2xl font-semibold text-gray-900">
-                Something went wrong
-              </h2>
-              <p className="mt-2 text-gray-600">
-                Please try refreshing the page
-              </p>
-            </div>
+        <div className="min-h-screen flex items-center justify-center bg-atlas-black text-white p-4">
+          <div className="text-center space-y-4">
+            <h2 className="text-2xl font-bold text-atlas-teal">
+              Something went wrong
+            </h2>
+            <p className="text-atlas-gray-400">
+              Please refresh the page or try again later.
+            </p>
           </div>
-        )
+        </div>
       );
     }
 
