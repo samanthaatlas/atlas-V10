@@ -6,6 +6,7 @@ import { Section } from '@/components/ui/Section';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import Image from 'next/image';
 import {
   Cube,
   CheckSquare,
@@ -26,7 +27,6 @@ import {
 } from '@phosphor-icons/react';
 import { useState, useCallback } from 'react';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 
 // Dynamic imports for code splitting
 const DynamicScreenshotShowcase = dynamic(
@@ -302,13 +302,10 @@ export default function Home() {
 
         {/* Logo */}
         <div className="fixed top-4 left-4 z-50">
-          <Image
+          <img
             src="/atlas1.png"
             alt="Atlas Logo"
-            width={120}
-            height={40}
-            className="object-contain"
-            priority
+            className="h-10 w-auto object-contain"
           />
         </div>
 
