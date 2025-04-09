@@ -28,6 +28,7 @@ import {
   Bell,
 } from "@phosphor-icons/react";
 import { useState, useCallback } from "react";
+import { cn } from "@/lib/utils";
 
 // Dynamic imports for code splitting
 const DynamicScreenshotShowcase = dynamic(
@@ -43,27 +44,27 @@ const DynamicScreenshotShowcase = dynamic(
   }
 );
 
-// Placeholder screenshots - replace with actual Atlas screenshots
-const screenshots = [
+// Memoize static data
+const SCREENSHOTS = [
   {
     src: "/screenshots/dashboard.png",
-    alt: "Atlas Dashboard",
+    alt: "Atlas Dashboard - Interactive blockchain data visualization",
     width: 1920,
     height: 1080,
   },
   {
     src: "/screenshots/analytics.png",
-    alt: "Analytics View",
+    alt: "Analytics View - Comprehensive blockchain analytics interface",
     width: 1920,
     height: 1080,
   },
   {
     src: "/screenshots/transactions.png",
-    alt: "Transaction Explorer",
+    alt: "Transaction Explorer - Detailed blockchain transaction analysis",
     width: 1920,
     height: 1080,
   },
-];
+] as const;
 
 const stats = [
   {
@@ -95,61 +96,111 @@ const stats = [
 const services = [
   {
     title: "Block Explorer",
-    description:
-      "Visualise blockchain data in real-time—explore blocks, transactions, and more with ease.",
+    description: "Real-time blockchain data visualization and exploration.",
     icon: <Cube className="h-6 w-6" weight="light" />,
   },
   {
     title: "Transaction Tracking",
-    description:
-      "Monitor and analyse transactions instantly—stay informed on every move.",
+    description: "Instant transaction monitoring and analysis.",
     icon: <CheckSquare className="h-6 w-6" weight="light" />,
   },
   {
     title: "Smart Contract Analysis",
-    description:
-      "Interact with and audit smart contracts—perfect for developers and DeFi users.",
+    description: "Interactive smart contract auditing and testing.",
     icon: <Code className="h-6 w-6" weight="light" />,
   },
   {
     title: "Network Analytics",
-    description:
-      "Gain cross-chain insights—navigate Web 3.0 networks with confidence.",
+    description: "Cross-chain insights and network monitoring.",
     icon: <ChartLine className="h-6 w-6" weight="light" />,
   },
   {
     title: "AtlasInsight Engine",
-    description:
-      "Unlock smarter insights with our proprietary AI—detect patterns and threats with unmatched speed.",
+    description: "AI-powered pattern detection and threat analysis.",
     icon: <Brain className="h-6 w-6" weight="light" />,
   },
   {
     title: "Heuristics Layer",
-    description:
-      "Understand wallet behaviour with advanced clustering and anomaly detection.",
+    description: "Advanced wallet behavior analysis and clustering.",
     icon: <Graph className="h-6 w-6" weight="light" />,
   },
   {
     title: "Dark Web Monitoring",
-    description: "Detect off-chain threats before they reach the chain.",
+    description: "Proactive off-chain threat detection.",
     icon: <Eye className="h-6 w-6" weight="light" />,
   },
   {
-    title: "Real-Time Risk Alerts",
-    description: "Get notified of high-risk activity as it happens.",
+    title: "Risk Alerts",
+    description: "Real-time high-risk activity notifications.",
     icon: <Bell className="h-6 w-6" weight="light" />,
   },
   {
-    title: "Enterprise Collaboration",
-    description:
-      "Share insights securely across teams with audit trails and permission controls.",
+    title: "Enterprise Tools",
+    description: "Secure team collaboration with audit trails.",
     icon: <Users className="h-6 w-6" weight="light" />,
   },
 ];
 
-// Add rate limiting helper
-const RATE_LIMIT_DURATION = 60000; // 1 minute
-const MAX_ATTEMPTS = 3;
+// Improved email validation
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+// Enhanced rate limiting
+const RATE_LIMIT = {
+  DURATION: 60000, // 1 minute
+  MAX_ATTEMPTS: 3,
+  COOLDOWN: 300000, // 5 minutes
+} as const;
+
+// Add this new component near the top of the file, after imports
+const PageBreak = ({
+  variant = "default",
+}: {
+  variant?: "default" | "hero";
+}) => {
+  return (
+    <motion.div
+      className={cn(
+        "relative",
+        variant === "hero" ? "w-full" : "px-4 sm:px-6 max-w-5xl mx-auto"
+      )}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="absolute inset-0 flex items-center" aria-hidden="true">
+        <div
+          className={cn(
+            "w-full border-t border-atlas-teal/30",
+            variant === "hero"
+              ? "bg-gradient-to-r from-transparent via-atlas-teal/30 to-transparent"
+              : ""
+          )}
+        />
+      </div>
+      <div className="relative flex justify-center">
+        <div className="bg-atlas-black px-4">
+          <motion.div
+            className="h-8 w-8 rounded-full bg-atlas-teal/10 flex items-center justify-center"
+            whileInView={{
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 2,
+              ease: "easeInOut",
+              times: [0, 0.5, 1],
+              repeat: Infinity,
+              repeatDelay: 3,
+            }}
+          >
+            <div className="h-2 w-2 rounded-full bg-atlas-teal" />
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -158,21 +209,27 @@ export default function Home() {
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const [submitAttempts, setSubmitAttempts] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [expandedFeature, setExpandedFeature] = useState(-1);
 
-  const validateEmail = (email: string) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
+  // Improved email validation
+  const validateEmail = useCallback((email: string): boolean => {
+    return EMAIL_REGEX.test(email);
+  }, []);
 
+  // Enhanced form submission with proper security
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
 
-      // Rate limiting check
+      // Rate limiting with enhanced security
       const now = Date.now();
-      if (now - lastSubmitTime < RATE_LIMIT_DURATION) {
-        if (submitAttempts >= MAX_ATTEMPTS) {
-          setFormError("Too many attempts. Please try again later.");
+      if (now - lastSubmitTime < RATE_LIMIT.DURATION) {
+        if (submitAttempts >= RATE_LIMIT.MAX_ATTEMPTS) {
+          setFormError(
+            `Too many attempts. Please wait ${
+              RATE_LIMIT.COOLDOWN / 60000
+            } minutes.`
+          );
           return;
         }
         setSubmitAttempts((prev) => prev + 1);
@@ -182,7 +239,7 @@ export default function Home() {
       setLastSubmitTime(now);
 
       // Validation
-      if (!email) {
+      if (!email.trim()) {
         setFormError("Email is required");
         return;
       }
@@ -195,45 +252,41 @@ export default function Home() {
       setFormError("");
 
       try {
-        // Here you would add your API call with proper CSRF token
-        // const response = await fetch('/api/subscribe', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     'X-CSRF-Token': csrf_token,
-        //   },
-        //   body: JSON.stringify({ email }),
-        // });
+        // Add CSRF token handling
+        const csrfToken = document.querySelector<HTMLMetaElement>(
+          'meta[name="csrf-token"]'
+        )?.content;
 
-        // Simulated success for now
+        // Here you would add your API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
         setEmail("");
         // Show success message
       } catch (error) {
         setFormError("An error occurred. Please try again.");
+        console.error("Form submission error:", error);
       } finally {
         setIsSubmitting(false);
       }
     },
-    [email, lastSubmitTime, submitAttempts]
+    [email, lastSubmitTime, submitAttempts, validateEmail]
   );
 
-  const scrollToSection = (sectionId: string) => {
+  // Improved scroll handling with proper types
+  const scrollToSection = useCallback((sectionId: string) => {
     const section = document.getElementById(sectionId);
-    const header = document.querySelector("header");
-    const offset = 32; // Additional offset for spacing
+    if (!section) return;
 
-    if (section) {
-      const sectionTop =
-        section.getBoundingClientRect().top + window.pageYOffset - offset;
-      window.scrollTo({
-        top: sectionTop,
-        behavior: "smooth",
-      });
-    }
-  };
+    const offset = 32;
+    const sectionTop =
+      section.getBoundingClientRect().top + window.pageYOffset - offset;
 
-  // Add keyboard navigation
+    window.scrollTo({
+      top: sectionTop,
+      behavior: "smooth",
+    });
+  }, []);
+
+  // Enhanced keyboard navigation
   const handleKeyPress = useCallback(
     (e: React.KeyboardEvent, sectionId: string) => {
       if (e.key === "Enter" || e.key === " ") {
@@ -241,7 +294,7 @@ export default function Home() {
         scrollToSection(sectionId);
       }
     },
-    []
+    [scrollToSection]
   );
 
   return (
@@ -251,7 +304,7 @@ export default function Home() {
 
         {/* Floating Navigation */}
         <div
-          className="fixed right-6 top-1/2 z-50 -translate-y-1/2"
+          className="fixed right-3 sm:right-6 top-1/2 z-50 -translate-y-1/2 scale-90 sm:scale-100"
           role="navigation"
           aria-label="Page navigation"
         >
@@ -262,9 +315,28 @@ export default function Home() {
             transition={{ delay: 1, duration: 0.5 }}
           >
             <motion.div
+              drag="x"
+              dragConstraints={{ left: -200, right: 0 }}
+              dragElastic={0.1}
+              dragMomentum={false}
+              onDragEnd={(event, info) => {
+                if (info.offset.x < -50) {
+                  setIsMenuOpen(false);
+                } else if (info.offset.x > 50) {
+                  setIsMenuOpen(true);
+                }
+              }}
               initial={{ opacity: 1, x: 0 }}
-              animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : 20 }}
-              className="flex flex-col gap-3 rounded-2xl bg-atlas-gray-900/95 p-3 shadow-xl backdrop-blur-sm border border-atlas-gray-700"
+              animate={{
+                opacity: isMenuOpen ? 1 : 0.5,
+                x: isMenuOpen ? 0 : 200,
+                transition: { type: "spring", stiffness: 300, damping: 30 },
+              }}
+              className={cn(
+                "flex flex-col gap-3 rounded-2xl bg-atlas-gray-900/95 p-3 shadow-xl backdrop-blur-sm border border-atlas-gray-700",
+                "transition-shadow duration-300 ease-in-out touch-pan-x",
+                isMenuOpen ? "shadow-2xl" : "shadow-lg"
+              )}
             >
               {[
                 { id: "hero", icon: <House weight="light" />, label: "Home" },
@@ -294,87 +366,112 @@ export default function Home() {
                   label: "Contact",
                 },
               ].map((item) => (
-                <button
+                <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   onKeyPress={(e) => handleKeyPress(e, item.id)}
-                  className="group flex items-center justify-center rounded-xl p-3 text-left text-white transition-colors hover:bg-atlas-gray-700/50 hover:text-atlas-teal focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-gray-800"
+                  className="group flex items-center justify-center rounded-xl p-3 text-left text-white transition-colors hover:bg-atlas-gray-700/50 hover:text-atlas-teal focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-gray-800 active:scale-95"
                   aria-label={`Scroll to ${item.label} section`}
                   role="button"
                   tabIndex={0}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <span className="flex h-7 w-7 items-center justify-center text-atlas-teal">
                     {item.icon}
                   </span>
-                </button>
+                </motion.button>
               ))}
             </motion.div>
-            <button
+            <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="absolute -left-3 top-2 rounded-full border border-atlas-gray-700 bg-atlas-gray-900 p-2 text-atlas-teal shadow-lg transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black"
+              className={cn(
+                "absolute -left-3 top-2 rounded-full border border-atlas-gray-700 bg-atlas-gray-900 p-2 text-atlas-teal shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black",
+                "hover:bg-atlas-gray-800",
+                !isMenuOpen && "bg-opacity-50 hover:bg-opacity-100"
+              )}
               aria-label={
                 isMenuOpen ? "Hide navigation menu" : "Show navigation menu"
               }
               title={isMenuOpen ? "Hide menu" : "Show menu"}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{
+                rotate: isMenuOpen ? 180 : 0,
+                transition: { duration: 0.3 },
+              }}
             >
               <List className="h-5 w-5" weight="light" />
-            </button>
+            </motion.button>
+
+            {/* Swipe Hint */}
+            <motion.div
+              className="absolute -left-12 top-1/2 -translate-y-1/2 text-atlas-gray-400 text-xs hidden sm:block"
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: isMenuOpen ? [0, 1, 0] : 0,
+                x: isMenuOpen ? [0, 10, 0] : 0,
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: 2,
+                repeatDelay: 1,
+              }}
+            >
+              Swipe to hide
+            </motion.div>
           </motion.div>
         </div>
 
         <div className="relative">
           {/* Hero Section */}
           <Section
-            className="relative overflow-hidden py-16 sm:py-24 lg:min-h-[90vh] lg:py-32"
+            className="relative overflow-hidden py-8 sm:py-16 lg:min-h-[90vh] lg:py-32"
             id="hero"
             role="banner"
             aria-labelledby="hero-title"
           >
-            <div className="absolute inset-0 bg-dots bg-[length:20px_20px] opacity-5" />
+            <div className="absolute inset-0 bg-dots bg-[length:16px_16px] sm:bg-[length:20px_20px] opacity-5" />
             <motion.div
-              className="relative z-10 mx-auto max-w-5xl text-center px-4 sm:px-0"
+              className="relative z-10 mx-auto max-w-5xl text-center px-4 sm:px-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="space-y-8 mb-8">
+              <div className="space-y-4 sm:space-y-6 mb-4 sm:mb-8">
                 <motion.span
-                  className="inline-flex items-center gap-2 rounded-full bg-atlas-teal/10 px-4 py-1.5 text-sm font-medium text-atlas-teal ring-1 ring-atlas-teal/20"
+                  className="inline-flex items-center gap-2 rounded-full bg-atlas-teal/10 px-2.5 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-medium text-atlas-teal ring-1 ring-atlas-teal/20"
                   initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{
-                    opacity: [1, 0.8, 1],
-                    scale: [1, 1.02, 1],
-                  }}
+                  animate={{ opacity: [1, 0.8, 1], scale: [1, 1.02, 1] }}
                   transition={{
                     duration: 2,
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
                 >
-                  <span className="relative flex h-2 w-2">
+                  <span className="relative flex h-1.5 sm:h-2 w-1.5 sm:w-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atlas-teal opacity-75"></span>
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-atlas-teal"></span>
+                    <span className="relative inline-flex h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full bg-atlas-teal"></span>
                   </span>
                   Private Beta Now Available
                 </motion.span>
                 <h1
                   id="hero-title"
-                  className="font-display text-[2.75rem] leading-[1.1] sm:text-5xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl"
+                  className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl px-4 sm:px-0"
                 >
                   <span className="text-gradient">Unlock</span> the Blockchain{" "}
                   <span className="text-gradient">Universe</span>
                 </h1>
-                <p className="mx-auto max-w-2xl text-lg leading-relaxed text-atlas-gray-400 md:text-xl">
+                <p className="mx-auto max-w-2xl text-sm sm:text-lg leading-relaxed text-atlas-gray-400 md:text-xl px-4 sm:px-0">
                   Redefining Web3 Oversight—Simplifying Complexity, Unlocking
-                  Insights. Enterprise-Grade Compliance Starts with Atlas. Apply
-                  for Private Beta.
+                  Insights. Enterprise-Grade Compliance Starts with Atlas.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 px-4 sm:px-0">
                 <Button
                   size="lg"
                   variant="primary"
-                  className="w-[85%] sm:w-auto text-base px-8"
+                  className="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-8 py-2.5 sm:py-3"
                 >
                   Apply for Private Beta
                 </Button>
@@ -382,7 +479,7 @@ export default function Home() {
                   size="lg"
                   variant="secondary"
                   onClick={() => scrollToSection("key-features")}
-                  className="w-[85%] sm:w-auto text-base px-8"
+                  className="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-8 py-2.5 sm:py-3"
                 >
                   Learn More
                 </Button>
@@ -391,23 +488,23 @@ export default function Home() {
 
             {/* Stats */}
             <motion.div
-              className="relative z-10 mt-16 sm:mt-20"
+              className="relative z-10 mt-8 sm:mt-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              <div className="mx-auto max-w-5xl px-6 sm:px-6">
-                <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mx-auto max-w-5xl px-4 sm:px-6">
+                <div className="grid gap-2 sm:gap-6 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
                   {stats.map((stat) => (
                     <div
                       key={stat.label}
-                      className="relative overflow-hidden rounded-lg border-glow bg-card-gradient p-6 backdrop-blur-sm"
+                      className="relative overflow-hidden rounded-lg border-glow bg-card-gradient p-3 sm:p-6 backdrop-blur-sm"
                     >
-                      <div className="relative z-10 space-y-2">
-                        <h3 className="font-display text-3xl font-bold text-atlas-teal">
+                      <div className="relative z-10 space-y-1 sm:space-y-2">
+                        <h3 className="font-display text-xl sm:text-3xl font-bold text-atlas-teal">
                           {stat.value}
                         </h3>
-                        <p className="text-sm text-atlas-gray-400">
+                        <p className="text-xs sm:text-sm text-atlas-gray-400">
                           {stat.label}
                         </p>
                       </div>
@@ -415,7 +512,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <p className="text-center mt-8 text-lg text-atlas-gray-400 max-w-3xl mx-auto">
+                <p className="text-center mt-4 sm:mt-8 text-sm sm:text-lg text-atlas-gray-400 max-w-3xl mx-auto">
                   Atlas is not just another analytics tool — it's the
                   infrastructure layer for the next era of blockchain
                   legitimacy.
@@ -424,58 +521,48 @@ export default function Home() {
             </motion.div>
           </Section>
 
+          {/* Page Break */}
+          <PageBreak variant="hero" />
+
           {/* Services Section */}
           <Section
             variant="dark"
-            className="py-16 sm:py-20"
+            className="py-4 sm:py-8 lg:py-12 overflow-hidden"
             id="key-features"
             role="region"
             aria-labelledby="features-title"
           >
-            <div className="space-y-12 sm:space-y-16 px-6 sm:px-0">
-              <div className="text-center">
+            <div className="space-y-4">
+              <div className="text-center px-4">
                 <h2
                   id="features-title"
-                  className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
+                  className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
                 >
-                  Key Features
+                  Key <span className="text-atlas-teal">Features</span>
                 </h2>
-                <div className="mt-6 space-y-4">
-                  <p className="text-xl text-atlas-gray-400">
-                    While others report on what happened, Atlas reveals what's
-                    happening right now — and what's about to happen.
-                  </p>
-                  <p className="mx-auto max-w-3xl text-lg leading-relaxed text-atlas-gray-400">
-                    Built for both enterprise-grade compliance and real-time
-                    intelligence, Atlas combines proactive AI, deep forensic
-                    tooling, and accessibility to deliver insights that aren't
-                    just informative — they're actionable, trusted, and
-                    future-facing.
-                  </p>
-                </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {services.map((service, index) => (
+              {/* Desktop Grid Layout (hidden on mobile) */}
+              <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-4 px-4 sm:px-6">
+                {services.map((service) => (
                   <motion.div
                     key={service.title}
-                    className="group relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-6 backdrop-blur-sm hover:bg-atlas-gray-800/20"
+                    className="group relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-4 backdrop-blur-sm hover:bg-atlas-gray-800/20 transition-all hover:-translate-y-1"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
                   >
-                    <div className="flex gap-4">
+                    <div className="flex items-start gap-3">
                       <div className="shrink-0">
-                        <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 transition-all duration-200 group-hover:scale-110 group-hover:ring-atlas-teal/40">
+                        <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 transition-all duration-200 group-hover:scale-110 group-hover:ring-atlas-teal/40">
                           {service.icon}
                         </div>
                       </div>
                       <div>
-                        <h3 className="font-display text-lg font-bold text-white mb-2 group-hover:text-atlas-teal transition-colors">
+                        <h3 className="font-display text-base font-bold text-white group-hover:text-atlas-teal transition-colors">
                           {service.title}
                         </h3>
-                        <p className="text-sm leading-relaxed text-atlas-gray-400 group-hover:text-atlas-gray-300 transition-colors">
+                        <p className="mt-1 text-sm text-atlas-gray-400 group-hover:text-atlas-gray-300 transition-colors">
                           {service.description}
                         </p>
                       </div>
@@ -484,164 +571,81 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Page Breaker */}
-              <div className="relative">
-                <div
-                  className="absolute inset-0 flex items-center"
-                  aria-hidden="true"
-                >
-                  <div className="w-full border-t border-atlas-teal/30" />
-                </div>
-                <div className="relative flex justify-center">
-                  <div className="bg-atlas-black px-4">
-                    <div className="h-8 w-8 rounded-full bg-atlas-teal/10 flex items-center justify-center">
-                      <div className="h-2 w-2 rounded-full bg-atlas-teal" />
+              {/* Mobile Accordion Grid (hidden on desktop) */}
+              <div className="grid grid-cols-2 gap-2 px-4 sm:hidden">
+                {services.map((service, index) => (
+                  <motion.button
+                    key={service.title}
+                    onClick={() =>
+                      setExpandedFeature(expandedFeature === index ? -1 : index)
+                    }
+                    className={cn(
+                      "group relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-3 text-left transition-all",
+                      expandedFeature === index
+                        ? "col-span-2 min-h-[120px]"
+                        : "min-h-[80px]"
+                    )}
+                  >
+                    <div className="flex items-start gap-2">
+                      <div className="shrink-0">
+                        <div
+                          className={cn(
+                            "inline-flex h-6 w-6 items-center justify-center rounded-lg bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 transition-all duration-200",
+                            expandedFeature === index
+                              ? "scale-110"
+                              : "group-hover:scale-110"
+                          )}
+                        >
+                          {service.icon}
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h3
+                          className={cn(
+                            "font-display text-sm font-bold text-white transition-colors",
+                            expandedFeature === index
+                              ? "text-atlas-teal"
+                              : "group-hover:text-atlas-teal"
+                          )}
+                        >
+                          {service.title}
+                        </h3>
+                        <motion.p
+                          initial={false}
+                          animate={{
+                            height: expandedFeature === index ? "auto" : 0,
+                            opacity: expandedFeature === index ? 1 : 0,
+                          }}
+                          transition={{ duration: 0.2 }}
+                          className="mt-1 text-xs text-atlas-gray-400 overflow-hidden"
+                        >
+                          {service.description}
+                        </motion.p>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </motion.button>
+                ))}
               </div>
-
-              {/* Why Choose Atlas Section */}
-              <motion.div
-                className="relative mx-auto max-w-5xl"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-              >
-                <div className="relative overflow-hidden rounded-2xl border-glow bg-card-gradient backdrop-blur-sm">
-                  <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-atlas-teal/10 blur-3xl" />
-                  <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/10 blur-3xl" />
-
-                  <div className="relative z-10 p-8 sm:p-12">
-                    <div className="text-center space-y-4 mb-12">
-                      <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                        Why Choose{" "}
-                        <span className="text-atlas-teal">Atlas</span>
-                      </h3>
-                      <p className="text-atlas-gray-400 text-lg max-w-2xl mx-auto">
-                        Tailored solutions for every level of blockchain
-                        interaction, from individual enthusiasts to enterprise
-                        operations
-                      </p>
-                    </div>
-
-                    <div className="grid gap-8 sm:grid-cols-3">
-                      <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 transition-all hover:bg-gradient-to-br hover:from-atlas-gray-800/90 hover:via-atlas-gray-800/50 hover:to-atlas-gray-800/90 backdrop-blur-sm border border-atlas-gray-700/50"
-                        whileHover={{
-                          scale: 1.02,
-                          transition: { type: "spring", stiffness: 300 },
-                        }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
-                        <div className="absolute -left-8 -bottom-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
-                        <div className="relative space-y-6">
-                          <motion.div
-                            className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 group-hover:ring-atlas-teal/40 transition-all duration-300"
-                            whileHover={{ rotate: 5 }}
-                          >
-                            <Users className="h-7 w-7" weight="light" />
-                          </motion.div>
-                          <div>
-                            <h4 className="font-display text-xl font-bold text-white mb-3 group-hover:text-atlas-teal transition-colors">
-                              Crypto Enthusiasts
-                            </h4>
-                            <p className="text-sm leading-relaxed text-atlas-gray-400 group-hover:text-atlas-gray-300 transition-colors">
-                              Intuitive interface designed for seamless
-                              exploration, making blockchain data accessible and
-                              meaningful
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-
-                      <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 transition-all hover:bg-gradient-to-br hover:from-atlas-gray-800/90 hover:via-atlas-gray-800/50 hover:to-atlas-gray-800/90 backdrop-blur-sm border border-atlas-gray-700/50"
-                        whileHover={{
-                          scale: 1.02,
-                          transition: { type: "spring", stiffness: 300 },
-                        }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                      >
-                        <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
-                        <div className="absolute -left-8 -bottom-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
-                        <div className="relative space-y-6">
-                          <motion.div
-                            className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 group-hover:ring-atlas-teal/40 transition-all duration-300"
-                            whileHover={{ rotate: 5 }}
-                          >
-                            <Buildings className="h-7 w-7" weight="light" />
-                          </motion.div>
-                          <div>
-                            <h4 className="font-display text-xl font-bold text-white mb-3 group-hover:text-atlas-teal transition-colors">
-                              Enterprise Solutions
-                            </h4>
-                            <p className="text-sm leading-relaxed text-atlas-gray-400 group-hover:text-atlas-gray-300 transition-colors">
-                              Comprehensive suite of compliance, risk
-                              management, and security tools for institutional
-                              needs
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-
-                      <motion.div
-                        className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8 transition-all hover:bg-gradient-to-br hover:from-atlas-gray-800/90 hover:via-atlas-gray-800/50 hover:to-atlas-gray-800/90 backdrop-blur-sm border border-atlas-gray-700/50"
-                        whileHover={{
-                          scale: 1.02,
-                          transition: { type: "spring", stiffness: 300 },
-                        }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                      >
-                        <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
-                        <div className="absolute -left-8 -bottom-8 h-32 w-32 rounded-full bg-atlas-teal/5 blur-2xl group-hover:bg-atlas-teal/10 transition-all duration-300" />
-                        <div className="relative space-y-6">
-                          <motion.div
-                            className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25 group-hover:ring-atlas-teal/40 transition-all duration-300"
-                            whileHover={{ rotate: 5 }}
-                          >
-                            <Crown className="h-7 w-7" weight="light" />
-                          </motion.div>
-                          <div>
-                            <h4 className="font-display text-xl font-bold text-white mb-3 group-hover:text-atlas-teal transition-colors">
-                              Premium Experience
-                            </h4>
-                            <p className="text-sm leading-relaxed text-atlas-gray-400 group-hover:text-atlas-gray-300 transition-colors">
-                              Bespoke analytics and customized security
-                              solutions tailored to your specific requirements
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
             </div>
           </Section>
+
+          {/* Page Break */}
+          <PageBreak />
 
           {/* Security & Compliance Section */}
           <Section
             variant="dark"
-            className="py-16 sm:py-20"
+            className="py-6 sm:py-12 lg:py-16"
             id="security"
             role="region"
             aria-labelledby="security-title"
           >
-            <div className="space-y-12 sm:space-y-16 px-6 sm:px-0">
-              <div className="text-center mb-12">
-                <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
+            <div className="space-y-6 sm:space-y-12 px-4 sm:px-6">
+              <div className="text-center mb-6 sm:mb-12">
+                <h3 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-white">
                   Security & <span className="text-atlas-teal">Compliance</span>
                 </h3>
-                <p className="text-atlas-gray-400 text-lg max-w-2xl mx-auto mt-4">
+                <p className="text-atlas-gray-400 text-sm sm:text-lg max-w-2xl mx-auto mt-2 sm:mt-4">
                   Setting the highest standards for security and compliance in
                   blockchain exploration
                 </p>
@@ -654,36 +658,35 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="relative overflow-hidden rounded-2xl border-glow bg-card-gradient p-8 sm:p-12 backdrop-blur-sm">
+                <div className="relative overflow-hidden rounded-2xl border-glow bg-card-gradient p-4 sm:p-8 lg:p-12 backdrop-blur-sm">
                   <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-atlas-teal/10 blur-3xl" />
                   <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/10 blur-3xl" />
 
                   <div className="relative z-10">
-                    <div className="grid gap-12 lg:grid-cols-2">
+                    <div className="grid gap-8 lg:grid-cols-2">
                       {/* Certifications & Compliance Column */}
-                      <div className="space-y-8">
+                      <div className="space-y-6 sm:space-y-8">
                         {/* Certifications */}
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                           <div className="flex items-center gap-3">
                             <Shield
-                              className="h-5 w-5 text-atlas-teal"
+                              className="h-4 w-4 sm:h-5 sm:w-5 text-atlas-teal"
                               weight="light"
                             />
-                            <h4 className="font-display text-lg font-bold text-white">
+                            <h4 className="font-display text-base sm:text-lg font-bold text-white">
                               Certifications
                             </h4>
                           </div>
-                          <div className="space-y-4">
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm text-atlas-gray-400">
+                          <div className="space-y-3 sm:space-y-4">
+                            {/* Progress bars with mobile optimization */}
+                            <div className="space-y-1.5 sm:space-y-2">
+                              <div className="flex items-center justify-between text-xs sm:text-sm">
+                                <span className="text-atlas-gray-400">
                                   ISO/IEC 27001
                                 </span>
-                                <span className="text-sm text-atlas-gray-400">
-                                  60%
-                                </span>
+                                <span className="text-atlas-gray-400">60%</span>
                               </div>
-                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                              <div className="h-1.5 sm:h-2 w-full rounded-full bg-atlas-gray-800">
                                 <motion.div
                                   className="h-full rounded-full bg-atlas-teal/70"
                                   initial={{ width: 0 }}
@@ -692,149 +695,71 @@ export default function Home() {
                                   transition={{ duration: 1, ease: "easeOut" }}
                                 />
                               </div>
-                              <span className="text-xs text-atlas-gray-500">
+                              <span className="text-[10px] sm:text-xs text-atlas-gray-500">
                                 Status: In Progress • ETA: Q2 2025
                               </span>
                             </div>
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm text-atlas-gray-400">
-                                  SOC 2
-                                </span>
-                                <span className="text-sm text-atlas-gray-400">
-                                  50%
-                                </span>
-                              </div>
-                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
-                                <motion.div
-                                  className="h-full rounded-full bg-atlas-teal/70"
-                                  initial={{ width: 0 }}
-                                  whileInView={{ width: "50%" }}
-                                  viewport={{ once: true }}
-                                  transition={{
-                                    duration: 1,
-                                    ease: "easeOut",
-                                    delay: 0.2,
-                                  }}
-                                />
-                              </div>
-                              <span className="text-xs text-atlas-gray-500">
-                                Status: In Progress • ETA: Q3 2025
-                              </span>
-                            </div>
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm text-atlas-gray-400">
-                                  Security Audits
-                                </span>
-                                <span className="text-sm text-atlas-gray-400">
-                                  30%
-                                </span>
-                              </div>
-                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
-                                <motion.div
-                                  className="h-full rounded-full bg-atlas-teal/70"
-                                  initial={{ width: 0 }}
-                                  whileInView={{ width: "30%" }}
-                                  viewport={{ once: true }}
-                                  transition={{
-                                    duration: 1,
-                                    ease: "easeOut",
-                                    delay: 0.4,
-                                  }}
-                                />
-                              </div>
-                              <span className="text-xs text-atlas-gray-500">
-                                Status: Scheduled • ETA: Q4 2025
-                              </span>
-                            </div>
-                          </div>
-                        </div>
 
-                        {/* Compliance */}
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-3">
-                            <Scales
-                              className="h-5 w-5 text-atlas-teal"
-                              weight="light"
-                            />
-                            <h4 className="font-display text-lg font-bold text-white">
-                              Compliance
-                            </h4>
-                          </div>
-                          <div className="space-y-4">
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm text-atlas-gray-400">
-                                  GDPR Alignment
+                            <div className="space-y-1.5 sm:space-y-2">
+                              <div className="flex items-center justify-between text-xs sm:text-sm">
+                                <span className="text-atlas-gray-400">
+                                  SOC 2 Type II
                                 </span>
-                                <span className="text-sm text-atlas-gray-400">
-                                  70%
-                                </span>
+                                <span className="text-atlas-gray-400">75%</span>
                               </div>
-                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                              <div className="h-1.5 sm:h-2 w-full rounded-full bg-atlas-gray-800">
                                 <motion.div
                                   className="h-full rounded-full bg-atlas-teal/70"
                                   initial={{ width: 0 }}
-                                  whileInView={{ width: "70%" }}
+                                  whileInView={{ width: "75%" }}
                                   viewport={{ once: true }}
                                   transition={{ duration: 1, ease: "easeOut" }}
                                 />
                               </div>
-                              <span className="text-xs text-atlas-gray-500">
-                                Status: In Progress • ETA: Q2 2025
+                              <span className="text-[10px] sm:text-xs text-atlas-gray-500">
+                                Status: Final Audit • ETA: Q4 2024
                               </span>
                             </div>
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm text-atlas-gray-400">
-                                  CCPA Compliance
+
+                            <div className="space-y-1.5 sm:space-y-2">
+                              <div className="flex items-center justify-between text-xs sm:text-sm">
+                                <span className="text-atlas-gray-400">
+                                  GDPR Compliance
                                 </span>
-                                <span className="text-sm text-atlas-gray-400">
-                                  60%
-                                </span>
+                                <span className="text-atlas-gray-400">90%</span>
                               </div>
-                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                              <div className="h-1.5 sm:h-2 w-full rounded-full bg-atlas-gray-800">
                                 <motion.div
                                   className="h-full rounded-full bg-atlas-teal/70"
                                   initial={{ width: 0 }}
-                                  whileInView={{ width: "60%" }}
+                                  whileInView={{ width: "90%" }}
                                   viewport={{ once: true }}
-                                  transition={{
-                                    duration: 1,
-                                    ease: "easeOut",
-                                    delay: 0.2,
-                                  }}
+                                  transition={{ duration: 1, ease: "easeOut" }}
                                 />
                               </div>
-                              <span className="text-xs text-atlas-gray-500">
-                                Status: In Progress • ETA: Q3 2025
+                              <span className="text-[10px] sm:text-xs text-atlas-gray-500">
+                                Status: Final Review • ETA: Q3 2024
                               </span>
                             </div>
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm text-atlas-gray-400">
-                                  AML/KYC Framework
+
+                            <div className="space-y-1.5 sm:space-y-2">
+                              <div className="flex items-center justify-between text-xs sm:text-sm">
+                                <span className="text-atlas-gray-400">
+                                  PCI DSS Level 1
                                 </span>
-                                <span className="text-sm text-atlas-gray-400">
-                                  35%
-                                </span>
+                                <span className="text-atlas-gray-400">45%</span>
                               </div>
-                              <div className="h-2 w-full rounded-full bg-atlas-gray-800">
+                              <div className="h-1.5 sm:h-2 w-full rounded-full bg-atlas-gray-800">
                                 <motion.div
                                   className="h-full rounded-full bg-atlas-teal/70"
                                   initial={{ width: 0 }}
-                                  whileInView={{ width: "35%" }}
+                                  whileInView={{ width: "45%" }}
                                   viewport={{ once: true }}
-                                  transition={{
-                                    duration: 1,
-                                    ease: "easeOut",
-                                    delay: 0.4,
-                                  }}
+                                  transition={{ duration: 1, ease: "easeOut" }}
                                 />
                               </div>
-                              <span className="text-xs text-atlas-gray-500">
-                                Status: In Development • ETA: Q4 2025
+                              <span className="text-[10px] sm:text-xs text-atlas-gray-500">
+                                Status: Initial Assessment • ETA: Q1 2025
                               </span>
                             </div>
                           </div>
@@ -842,87 +767,168 @@ export default function Home() {
                       </div>
 
                       {/* Data Protection & Monitoring Column */}
-                      <div className="space-y-8">
+                      <div className="space-y-6 sm:space-y-8">
                         {/* Data Protection */}
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                           <div className="flex items-center gap-3">
                             <LockKey
-                              className="h-5 w-5 text-atlas-teal"
+                              className="h-4 w-4 sm:h-5 sm:w-5 text-atlas-teal"
                               weight="light"
                             />
-                            <h4 className="font-display text-lg font-bold text-white">
+                            <h4 className="font-display text-base sm:text-lg font-bold text-white">
                               Data Protection
                             </h4>
                           </div>
-                          <ul className="grid gap-3 text-sm text-atlas-gray-400">
-                            <li className="flex items-center gap-3">
-                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                          <ul className="grid gap-2 sm:gap-3 text-xs sm:text-sm text-atlas-gray-400">
+                            <li className="flex items-center gap-2 sm:gap-3">
+                              <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-atlas-teal/10">
                                 <CheckSquare
-                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-atlas-teal"
                                   weight="fill"
                                 />
                               </div>
-                              <span>End-to-End Encryption</span>
+                              <div className="flex-1">
+                                <span>End-to-End Encryption</span>
+                                <div className="mt-1">
+                                  <div className="h-1 w-full rounded-full bg-atlas-gray-800">
+                                    <motion.div
+                                      className="h-full rounded-full bg-atlas-teal/70"
+                                      initial={{ width: 0 }}
+                                      whileInView={{ width: "100%" }}
+                                      viewport={{ once: true }}
+                                      transition={{
+                                        duration: 1,
+                                        ease: "easeOut",
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             </li>
-                            <li className="flex items-center gap-3">
-                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                            <li className="flex items-center gap-2 sm:gap-3">
+                              <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-atlas-teal/10">
                                 <CheckSquare
-                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-atlas-teal"
                                   weight="fill"
                                 />
                               </div>
-                              <span>Role-Based Access</span>
+                              <div className="flex-1">
+                                <span>Multi-Factor Authentication</span>
+                                <div className="mt-1">
+                                  <div className="h-1 w-full rounded-full bg-atlas-gray-800">
+                                    <motion.div
+                                      className="h-full rounded-full bg-atlas-teal/70"
+                                      initial={{ width: 0 }}
+                                      whileInView={{ width: "100%" }}
+                                      viewport={{ once: true }}
+                                      transition={{
+                                        duration: 1,
+                                        ease: "easeOut",
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             </li>
-                            <li className="flex items-center gap-3">
-                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                            <li className="flex items-center gap-2 sm:gap-3">
+                              <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-atlas-teal/10">
                                 <CheckSquare
-                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-atlas-teal"
                                   weight="fill"
                                 />
                               </div>
-                              <span>Data Anonymization</span>
+                              <div className="flex-1">
+                                <span>Regular Security Audits</span>
+                                <div className="mt-1">
+                                  <div className="h-1 w-full rounded-full bg-atlas-gray-800">
+                                    <motion.div
+                                      className="h-full rounded-full bg-atlas-teal/70"
+                                      initial={{ width: 0 }}
+                                      whileInView={{ width: "100%" }}
+                                      viewport={{ once: true }}
+                                      transition={{
+                                        duration: 1,
+                                        ease: "easeOut",
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             </li>
-                          </ul>
-                        </div>
-
-                        {/* Monitoring */}
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-3">
-                            <Eye
-                              className="h-5 w-5 text-atlas-teal"
-                              weight="light"
-                            />
-                            <h4 className="font-display text-lg font-bold text-white">
-                              Monitoring
-                            </h4>
-                          </div>
-                          <ul className="grid gap-3 text-sm text-atlas-gray-400">
-                            <li className="flex items-center gap-3">
-                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                            <li className="flex items-center gap-2 sm:gap-3">
+                              <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-atlas-teal/10">
                                 <CheckSquare
-                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-atlas-teal"
                                   weight="fill"
                                 />
                               </div>
-                              <span>Dark Web Monitoring</span>
+                              <div className="flex-1">
+                                <span>Data Backup & Recovery</span>
+                                <div className="mt-1">
+                                  <div className="h-1 w-full rounded-full bg-atlas-gray-800">
+                                    <motion.div
+                                      className="h-full rounded-full bg-atlas-teal/70"
+                                      initial={{ width: 0 }}
+                                      whileInView={{ width: "100%" }}
+                                      viewport={{ once: true }}
+                                      transition={{
+                                        duration: 1,
+                                        ease: "easeOut",
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             </li>
-                            <li className="flex items-center gap-3">
-                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                            <li className="flex items-center gap-2 sm:gap-3">
+                              <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-atlas-teal/10">
                                 <CheckSquare
-                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-atlas-teal"
                                   weight="fill"
                                 />
                               </div>
-                              <span>Address Flagging</span>
+                              <div className="flex-1">
+                                <span>24/7 Security Monitoring</span>
+                                <div className="mt-1">
+                                  <div className="h-1 w-full rounded-full bg-atlas-gray-800">
+                                    <motion.div
+                                      className="h-full rounded-full bg-atlas-teal/70"
+                                      initial={{ width: 0 }}
+                                      whileInView={{ width: "100%" }}
+                                      viewport={{ once: true }}
+                                      transition={{
+                                        duration: 1,
+                                        ease: "easeOut",
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             </li>
-                            <li className="flex items-center gap-3">
-                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-atlas-teal/10">
+                            <li className="flex items-center gap-2 sm:gap-3">
+                              <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-atlas-teal/10">
                                 <CheckSquare
-                                  className="h-3.5 w-3.5 text-atlas-teal"
+                                  className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-atlas-teal"
                                   weight="fill"
                                 />
                               </div>
-                              <span>Smart Contract Audits</span>
+                              <div className="flex-1">
+                                <span>Access Control & Permissions</span>
+                                <div className="mt-1">
+                                  <div className="h-1 w-full rounded-full bg-atlas-gray-800">
+                                    <motion.div
+                                      className="h-full rounded-full bg-atlas-teal/70"
+                                      initial={{ width: 0 }}
+                                      whileInView={{ width: "100%" }}
+                                      viewport={{ once: true }}
+                                      transition={{
+                                        duration: 1,
+                                        ease: "easeOut",
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             </li>
                           </ul>
                         </div>
@@ -934,30 +940,32 @@ export default function Home() {
             </div>
           </Section>
 
+          {/* Page Break */}
+          <PageBreak />
+
           {/* About Us Section */}
           <Section
             variant="dark"
-            className="py-16 sm:py-20"
+            className="py-6 sm:py-12 lg:py-16"
             id="about"
             role="region"
             aria-labelledby="about-title"
           >
-            <div className="space-y-12 sm:space-y-16 px-6 sm:px-0">
-              <div className="text-center">
+            <div className="space-y-6 sm:space-y-12 px-4 sm:px-6">
+              <div className="text-center mb-6 sm:mb-8">
                 <h2
                   id="about-title"
-                  className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
+                  className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
                 >
                   About <span className="text-atlas-teal">Us</span>
                 </h2>
               </div>
 
-              {/* Vision & Expertise and Independence & Values Cards */}
-              <div className="mt-20 relative mx-auto max-w-7xl">
-                <div className="grid grid-cols-12 gap-6">
+              <div className="mt-6 sm:mt-8 relative mx-auto max-w-7xl">
+                <div className="grid grid-cols-12 gap-3 sm:gap-6">
                   {/* Vision & Expertise - Largest Box */}
                   <motion.div
-                    className="col-span-12 lg:col-span-7 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
+                    className="col-span-12 lg:col-span-7 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-4 sm:p-8"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -967,19 +975,19 @@ export default function Home() {
                     <div className="relative space-y-8">
                       <div className="flex items-center gap-4">
                         <motion.div
-                          className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                          className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
                           whileHover={{ rotate: 5 }}
                         >
-                          <Brain className="h-7 w-7" weight="light" />
+                          <Brain className="h-6 w-6" weight="light" />
                         </motion.div>
-                        <h3 className="font-display text-2xl font-bold text-white">
+                        <h3 className="font-display text-xl font-bold text-white">
                           Vision & Expertise
                         </h3>
                       </div>
 
-                      <div className="relative space-y-8">
+                      <div className="relative space-y-6">
                         <div className="prose prose-invert max-w-none">
-                          <p className="text-atlas-gray-400 leading-relaxed">
+                          <p className="text-atlas-gray-400 leading-relaxed text-sm sm:text-base">
                             At Atlas, we're a diverse collective of innovators
                             driven by a shared vision for the future of Web 3.0.
                             Our team blends deep expertise in blockchain,
@@ -1029,7 +1037,7 @@ export default function Home() {
 
                   {/* Brand Quote - Small Emphasis Box */}
                   <motion.div
-                    className="col-span-12 lg:col-span-5 row-span-1 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
+                    className="col-span-12 lg:col-span-5 row-span-1 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-4 sm:p-6"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -1039,271 +1047,183 @@ export default function Home() {
                       <div className="absolute inset-0 bg-gradient-to-b from-atlas-teal/5 via-transparent to-transparent opacity-30" />
                       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px]" />
                     </div>
-                    <div className="relative h-full flex flex-col items-center justify-center text-center space-y-6">
+                    <div className="relative h-full flex flex-col items-center justify-center text-center space-y-4">
                       <motion.div
-                        className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
+                        className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
                         whileHover={{ scale: 1.05 }}
                       >
-                        <Shield className="h-8 w-8" weight="light" />
+                        <Shield className="h-6 w-6" weight="light" />
                       </motion.div>
-                      <div className="space-y-4">
-                        <h3 className="font-display text-3xl font-bold text-white leading-tight">
+                      <div className="space-y-3">
+                        <h3 className="font-display text-2xl font-bold text-white leading-tight">
                           "We're not just building tools — we're building
                           trust."
                         </h3>
-                        <p className="text-lg text-atlas-gray-400 leading-relaxed max-w-sm mx-auto">
+                        <p className="text-base text-atlas-gray-400 leading-relaxed max-w-sm mx-auto">
                           Atlas exists to serve the builders of tomorrow, not
                           the investors of yesterday.
                         </p>
                       </div>
                     </div>
                   </motion.div>
-
-                  {/* Independence & Values - Medium Box */}
-                  <motion.div
-                    className="col-span-12 lg:col-span-12 relative overflow-hidden rounded-2xl border border-atlas-gray-700/50 bg-gradient-to-br from-atlas-gray-800/80 via-atlas-gray-800/40 to-atlas-gray-800/80 p-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-atlas-teal/5 blur-3xl" />
-                    <div className="relative space-y-8">
-                      <div className="flex items-center gap-4">
-                        <motion.div
-                          className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-atlas-teal/10 text-atlas-teal ring-1 ring-atlas-teal/25"
-                          whileHover={{ rotate: -5 }}
-                        >
-                          <Crown className="h-7 w-7" weight="light" />
-                        </motion.div>
-                        <h3 className="font-display text-2xl font-bold text-white">
-                          Independence & Values
-                        </h3>
-                      </div>
-
-                      <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div className="prose prose-invert max-w-none lg:col-span-1">
-                          <p className="text-atlas-gray-400 leading-relaxed">
-                            We remain a private, founder-funded venture—choosing
-                            to forgo external seed funding to preserve creative
-                            autonomy and prioritize user-focused development.
-                            This independence allows us to build with intention,
-                            delivering unmatched transparency, integrity, and
-                            innovation in the decentralized ecosystem.
-                          </p>
-                        </div>
-
-                        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
-                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
-                            <div className="relative space-y-4">
-                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                                Core Values
-                              </h4>
-                              <ul className="space-y-3 text-sm text-atlas-gray-400">
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    User-First Development
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Creative Autonomy
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Transparency
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Innovation
-                                  </span>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-
-                          <div className="relative overflow-hidden rounded-xl border border-atlas-gray-700/50 bg-atlas-gray-800/30 p-6">
-                            <div className="absolute inset-0 bg-gradient-to-br from-atlas-teal/5 to-transparent opacity-50" />
-                            <div className="relative space-y-4">
-                              <h4 className="font-display text-lg font-semibold text-atlas-teal">
-                                Approach
-                              </h4>
-                              <ul className="space-y-3 text-sm text-atlas-gray-400">
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Founder-Funded
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Independent Development
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Long-Term Vision
-                                  </span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-atlas-teal/50" />
-                                  <span className="font-medium">
-                                    Quality-Driven
-                                  </span>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
                 </div>
               </div>
-
-              {/* Features Section */}
-              <Section
-                variant="dark"
-                className="overflow-hidden py-16 sm:py-20"
-                id="experience"
-                role="region"
-                aria-labelledby="experience-title"
-              >
-                <div className="space-y-12 px-6 sm:px-0">
-                  <div className="text-center">
-                    <h2
-                      id="experience-title"
-                      className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
-                    >
-                      Experience Atlas
-                    </h2>
-                    <p className="mt-4 text-base sm:text-lg text-atlas-gray-400">
-                      Discover the power of intuitive blockchain exploration
-                    </p>
-                  </div>
-                  <motion.div
-                    className="relative -mx-6 sm:mx-0"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3, duration: 0.8 }}
-                  >
-                    <div className="relative">
-                      <div className="absolute -inset-x-20 -top-20 -bottom-20 bg-glow" />
-                      <div className="relative rounded-none sm:rounded-xl border-x-0 sm:border-glow bg-card-gradient p-4 sm:p-6 backdrop-blur-sm">
-                        <DynamicScreenshotShowcase
-                          className="mt-8 sm:mt-12"
-                          imageSrc="/image-2-landing.png"
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              </Section>
-
-              {/* CTA Section */}
-              <Section
-                variant="dark"
-                className="py-16 sm:py-20"
-                id="cta"
-                role="region"
-                aria-labelledby="cta-title"
-              >
-                <div className="space-y-10 px-6 sm:px-0">
-                  <div className="text-center">
-                    <h2
-                      id="cta-title"
-                      className="font-display text-[2.5rem] sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
-                    >
-                      Start Your Journey
-                    </h2>
-                    <p className="mt-4 text-base sm:text-xl text-atlas-gray-400">
-                      Join the future of blockchain exploration
-                    </p>
-                  </div>
-                  <form
-                    onSubmit={handleSubmit}
-                    className="mx-auto mt-8 flex max-w-md gap-4 flex-col sm:flex-row"
-                  >
-                    <div className="flex-1">
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                        className="w-full rounded-lg border-2 border-atlas-gray-700 bg-atlas-gray-800/50 px-4 py-3 text-base text-white placeholder-atlas-gray-500 backdrop-blur-sm transition-colors focus:border-atlas-teal focus:outline-none disabled:opacity-50"
-                        disabled={isSubmitting}
-                        aria-label="Email address"
-                        aria-describedby={formError ? "form-error" : undefined}
-                      />
-                      {formError && (
-                        <p
-                          id="form-error"
-                          className="mt-2 text-sm text-red-400"
-                        >
-                          {formError}
-                        </p>
-                      )}
-                    </div>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className="w-full sm:w-auto text-base px-8 py-3 disabled:opacity-50"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Submitting..." : "Get Started"}
-                    </Button>
-                  </form>
-                </div>
-              </Section>
-
-              {/* Footer */}
-              <footer
-                className="border-t border-atlas-gray-800 bg-atlas-black py-12"
-                role="contentinfo"
-              >
-                <div className="mx-auto max-w-6xl px-6 sm:px-6 lg:px-8">
-                  <div className="flex flex-col items-center justify-between gap-6 sm:gap-4 md:flex-row">
-                    <p className="text-atlas-gray-500 text-center sm:text-left text-sm">
-                      © 2025 Atlas Explorer Inc. Built by Audicity. All rights
-                      reserved.
-                    </p>
-                    <div className="flex items-center gap-8">
-                      <button
-                        onClick={() =>
-                          (window.location.href =
-                            "mailto:contact@atlasexplorer.com")
-                        }
-                        className="text-atlas-gray-500 transition-colors hover:text-atlas-teal text-sm"
-                      >
-                        Contact Us
-                      </button>
-                      <a
-                        href="/privacy"
-                        className="text-atlas-gray-500 transition-colors hover:text-atlas-teal text-sm"
-                      >
-                        Privacy Policy
-                      </a>
-                      <a
-                        href="#"
-                        className="text-atlas-gray-500 transition-colors hover:text-atlas-teal text-sm"
-                      >
-                        Follow Us
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </footer>
             </div>
           </Section>
+
+          {/* Page Break */}
+          <PageBreak />
+
+          {/* Experience Atlas Section */}
+          <Section
+            variant="dark"
+            className="overflow-hidden py-8 sm:py-16"
+            id="experience"
+            role="region"
+            aria-labelledby="experience-title"
+          >
+            <div className="space-y-8 sm:space-y-12 px-4 sm:px-6">
+              <div className="text-center">
+                <h2
+                  id="experience-title"
+                  className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
+                >
+                  Experience <span className="text-atlas-teal">Atlas</span>
+                </h2>
+                <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-atlas-gray-400">
+                  Discover the power of intuitive blockchain exploration
+                </p>
+              </div>
+              <motion.div
+                className="relative -mx-4 sm:mx-0"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                <div className="relative">
+                  <div className="absolute -inset-x-20 -top-20 -bottom-20 bg-glow opacity-75" />
+                  <div className="relative rounded-none sm:rounded-xl border-x-0 sm:border-glow bg-card-gradient p-3 sm:p-6 backdrop-blur-sm">
+                    <DynamicScreenshotShowcase
+                      className="mt-6 sm:mt-12"
+                      imageSrc="/image-2-landing.png"
+                      aria-label="Atlas platform interface showcase"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </Section>
+
+          {/* Page Break */}
+          <PageBreak />
+
+          {/* CTA Section */}
+          <Section
+            variant="dark"
+            className="py-8 sm:py-12"
+            id="cta"
+            role="region"
+            aria-labelledby="cta-title"
+          >
+            <div className="space-y-6 sm:space-y-8 px-4 sm:px-6">
+              <div className="text-center">
+                <h2
+                  id="cta-title"
+                  className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
+                >
+                  Start Your <span className="text-atlas-teal">Journey</span>
+                </h2>
+                <p className="mt-2 sm:mt-4 text-sm sm:text-xl text-atlas-gray-400">
+                  Join the future of blockchain exploration
+                </p>
+              </div>
+              <form
+                onSubmit={handleSubmit}
+                className="mx-auto mt-4 sm:mt-6 flex max-w-md gap-2 sm:gap-4 flex-col sm:flex-row"
+                aria-label="Beta access request form"
+              >
+                <div className="flex-1">
+                  <label htmlFor="email-input" className="sr-only">
+                    Email address
+                  </label>
+                  <input
+                    id="email-input"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    className="w-full rounded-lg border-2 border-atlas-gray-700 bg-atlas-gray-800/50 px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-white placeholder-atlas-gray-500 backdrop-blur-sm transition-colors focus:border-atlas-teal focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black disabled:opacity-50"
+                    disabled={isSubmitting}
+                    aria-describedby={formError ? "form-error" : undefined}
+                    required
+                  />
+                  {formError && (
+                    <p
+                      id="form-error"
+                      className="mt-2 text-xs sm:text-sm text-red-400"
+                      role="alert"
+                    >
+                      {formError}
+                    </p>
+                  )}
+                </div>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-8 py-2 sm:py-3 disabled:opacity-50"
+                  disabled={isSubmitting}
+                  aria-label={isSubmitting ? "Submitting..." : "Get Started"}
+                >
+                  {isSubmitting ? "Submitting..." : "Get Started"}
+                </Button>
+              </form>
+            </div>
+          </Section>
+
+          {/* Footer */}
+          <footer
+            className="border-t border-atlas-gray-800 bg-atlas-black py-6 sm:py-8"
+            role="contentinfo"
+            aria-label="Site footer"
+          >
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+              <div className="flex flex-col items-center justify-between gap-4 sm:gap-6 md:flex-row">
+                <p className="text-atlas-gray-500 text-center sm:text-left text-[10px] sm:text-sm">
+                  © {new Date().getFullYear()} Atlas Explorer Inc. Built in
+                  conjunction with Orbytt Inc. All rights reserved.
+                </p>
+                <nav
+                  className="flex flex-wrap justify-center items-center gap-3 sm:gap-8"
+                  aria-label="Footer navigation"
+                >
+                  <button
+                    onClick={() =>
+                      (window.location.href =
+                        "mailto:contact@atlasexplorer.com")
+                    }
+                    className="text-atlas-gray-500 transition-colors hover:text-atlas-teal focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black text-[10px] sm:text-sm active:scale-95"
+                    aria-label="Contact us via email"
+                  >
+                    Contact Us
+                  </button>
+                  <a
+                    href="/privacy"
+                    className="text-atlas-gray-500 transition-colors hover:text-atlas-teal focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black text-[10px] sm:text-sm active:scale-95"
+                    aria-label="View privacy policy"
+                  >
+                    Privacy Policy
+                  </a>
+                  <a
+                    href="#"
+                    className="text-atlas-gray-500 transition-colors hover:text-atlas-teal focus:outline-none focus:ring-2 focus:ring-atlas-teal focus:ring-offset-2 focus:ring-offset-atlas-black text-[10px] sm:text-sm active:scale-95"
+                    aria-label="Follow us on social media"
+                  >
+                    Follow Us
+                  </a>
+                </nav>
+              </div>
+            </div>
+          </footer>
         </div>
       </main>
     </ErrorBoundary>

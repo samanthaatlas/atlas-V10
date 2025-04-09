@@ -15,14 +15,6 @@
 
 Atlas Explorer is a sophisticated blockchain analytics platform that provides real-time insights and transaction monitoring capabilities. Our modern, responsive interface delivers powerful blockchain data visualization and analysis tools.
 
-## 📊 Live Demo
-
-Experience Atlas Explorer in action:
-
-- 🌐 [Production](https://atlas-explorer.com)
-- 🔬 [Staging](https://staging.atlas-explorer.com)
-- 📚 [Documentation](https://docs.atlas-explorer.com)
-
 ## ✨ Key Features
 
 - **Real-Time Analytics Dashboard** - Monitor blockchain transactions and network activity with live updates
@@ -38,13 +30,6 @@ Experience Atlas Explorer in action:
 - **Performance:** Optimized build with dynamic imports
 - **Design:** Modern UI with glass morphism effects
 
-## 🎯 Core Objectives
-
-- Provide intuitive blockchain data analysis tools
-- Deliver real-time transaction monitoring
-- Offer sophisticated pattern recognition
-- Enable seamless cross-chain analytics
-
 ## 🛠️ Development
 
 ```bash
@@ -56,9 +41,6 @@ npm run dev
 
 # Build for production
 npm run build
-
-# Run tests
-npm test
 
 # Run linting
 npm run lint
@@ -73,47 +55,17 @@ Atlas Explorer embraces a modern, minimalist design language with:
 - Subtle animations and transitions
 - Responsive layout for all devices
 
-## 📈 Future Roadmap
+## 📝 License
 
-- Enhanced data visualization tools
-- Additional blockchain network support
-- Advanced pattern recognition algorithms
-- Customizable dashboard layouts
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 🔒 Security
 
-- All releases are signed with GPG
-- Regular security audits conducted
-- Bug bounty program available
-- See our [Security Policy](SECURITY.md) for reporting vulnerabilities
-
-## 🌟 Project Stats
-
-- ⭐ Stars: Growing community
-- 🔄 Daily Active Users: 10k+
-- 💻 Contributors: Open for collaboration
-- 🚀 Production Deployments: 99.9% uptime
-
-## 📫 Support & Contact
-
-- 📧 Email: support@atlas-explorer.com
-- 💬 Discord: [Join our community](https://discord.gg/atlas-explorer)
-- 🐦 Twitter: [@AtlasExplorer](https://twitter.com/AtlasExplorer)
-- 📝 Blog: [Latest Updates](https://blog.atlas-explorer.com)
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+For security issues, please read our [Security Policy](SECURITY.md).
 
 ---
 
